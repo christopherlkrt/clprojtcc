@@ -67,7 +67,7 @@ $linhas=sizeof($obj);
                 }
                 else{
                 ?>
-
+                <!-- aaaaaa -->
                 <div class="navbar-right col-md-2">
                 <ul class="nav navbar-nav">
                     <li><a class="branco" href="#" data-toggle="modal" data-target="#modalCadastro">Cadastrar</a></li>
