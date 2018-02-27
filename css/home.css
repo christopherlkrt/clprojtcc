@@ -1,0 +1,95 @@
+.home-slide {
+	/*background-image: url(../imgs/torta1.jpg);*/
+	width: 100%;
+	height: 30%;
+	/*height: 50vh;*/
+	background-position: left;
+	background-size: cover;
+	margin-top: 0px;
+}
+
+.tbn-img {
+	
+	height: 20vh !important;
+}
+
+.margin-t5{
+	margin-top: 3%;
+}
+
+.margin-col{
+	margin-left: 5%;
+}
+
+header .navbar { margin-bottom: 0; }
+
+.navbar-paprica {
+	background-color: #F0460A;
+	border-color: #F0460A;
+	border-radius: 0;
+}
+
+.paprica {
+	background-color: #F0460A;
+}
+
+.branco {
+	color:white !important;
+ }
+
+.thumbnail-title{
+	font-size: 18px;
+	text-align: center;
+	color: #1c2829;
+	margin: 10px auto;
+}
+
+.preto {
+	background-color: black;
+}
+
+.borda{
+	border-left: 2px solid white;
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+}
+
+.icones-redes{
+	font-size: 30px;
+	color: #F0460A;
+}
+
+.icones-redes:hover{
+	color:#ea5521;
+}
+
+.meio{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.carousel-inner>.item {
+	height: 60vh;
+	background-position: center;
+	background-size: cover;
+}
+
+li>a.branco:hover{
+	background-color:#d63800 !important;
+}
+li>a.branco:active{
+	background-color:#d63800 !important;
+}
+ul {
+  list-style-type: none;
+}
+
+/*ul.ingredientes:nth-child(even){
+	background-color: grey;
+}
+
+ul.ingredientes:nth-child(odd){
+	background-color: white;*/
+}
