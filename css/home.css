@@ -24,13 +24,13 @@
 header .navbar { margin-bottom: 0; }
 
 .navbar-paprica {
-	background-color: #F0460A;
-	border-color: #F0460A;
+	background-color: #FF5722;
+	border-color: #FF5722;
 	border-radius: 0;
 }
 
 .paprica {
-	background-color: #F0460A;
+	background-color: #FF5722; /*#F0460A;*/
 }
 
 .branco {
@@ -91,5 +91,9 @@ ul {
 }
 
 ul.ingredientes:nth-child(odd){
-	background-color: white;*/
+	background-color: white;
+}*/
+
+.min-alt{
+	height: 500px;
 }

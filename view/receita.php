@@ -6,7 +6,7 @@ if(isset($_SESSION['idUsuario'])){
     $nUsuario = $_SESSION['nUsuario'];
 }
 
-$id=$_GET['idReceita'];
+$id=$_GET['idreceita'];
 
 include "../model/receitaOP.class.php";
 $receitaop= new ReceitaOP();
@@ -170,9 +170,9 @@ $linha=sizeof($obj_ingrediente);
                 </div>
             </aside>
 
-            <div class="col-md-8 paprica">
+            <div class="col-md-8 paprica min-alt">
 
-            <h2><?=$obj_receita['nomeReceita']?></h2>    
+            <h2><?=$obj_receita['nomereceita']?></h2>    
             <p><?=$obj_receita['descricao']?><p>
 
             </div>
