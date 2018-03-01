@@ -138,9 +138,9 @@ $linha=sizeof($obj_ingrediente);
      </div><!--modal-dialog-->
  </div><!--modal-->
 
-
-    <div class="row meio margin-t5 text-center">
-    	<div class="col-md-6 col-md-offset-2 paprica">
+    <div class="container margin-t5">
+    <div class="row meio text-center">
+    	<div class="col-md-6 col-md-offset-2">
             <h3 class="col-md-2">Preparo</h3>
             <h3 class="col-md-2 col-md-offset-2">Tempo</h3>
             <h3 class="col-md-2 col-md-offset-2">Nota</h3>
@@ -149,10 +149,10 @@ $linha=sizeof($obj_ingrediente);
 
 
 	<!-- descrição-receita-->
-    <section class="container">
+    <section>
         <div class="row meio">
             <aside  class="col-md-2">
-                <div class="paprica">
+                <div>
                     <h3>Ingredientes</h3>
                     <ul class="ingredientes">
                     <?php
@@ -160,7 +160,7 @@ $linha=sizeof($obj_ingrediente);
                     {
                     ?>
 
-                    <li><?=$obj_ingrediente[$i]['nomeIngrediente']." ".$obj_ingrediente[$i]['quantia']?></li><br/>
+                    <li><?=$obj_ingrediente[$i]['nomeingrediente']." ".$obj_ingrediente[$i]['quantia']?></li><br/>
 
                     <?php
                     }
@@ -170,7 +170,7 @@ $linha=sizeof($obj_ingrediente);
                 </div>
             </aside>
 
-            <div class="col-md-8 paprica min-alt">
+            <div class="col-md-8 min-alt">
 
             <h2><?=$obj_receita['nomereceita']?></h2>    
             <p><?=$obj_receita['descricao']?><p>
@@ -178,12 +178,13 @@ $linha=sizeof($obj_ingrediente);
             </div>
              
         </div>
+    </div>
 </section>
 
 
 
 <footer>
-<div class="preto col-sm-12 margin-t5">
+<div class="preto col-sm-12 margin-t5 no-margin-b">
 	<div class="col-sm-6"><h2>Paprica</h2>
     <p>Paprica é uma fonte de receitas culinárias com o objetivo de suprir necessidades dos usuários que gostariam de filtrar o que procuram, utilizando seus ingredientes para fazer uma busca mais específica ou excluindo alguns ingredientes para quem necessitar ou apenas preferir.</p>
     </div>

@@ -17,6 +17,10 @@
 	margin-top: 3%;
 }
 
+.no-margin-b{
+	position: absolute;
+	bottom: 0;
+}
 .margin-col{
 	margin-left: 5%;
 }
@@ -94,6 +98,6 @@ ul.ingredientes:nth-child(odd){
 	background-color: white;
 }*/
 
-.min-alt{
-	height: 500px;
-}
+/*.min-alt{
+	min-height: 100vh;
+}*/
