@@ -1,15 +1,15 @@
 <?php
 
-session_start();
-if(isset($_SESSION['idusuario'])){
+// session_start();
+// if(isset($_SESSION['idusuario'])){
 
-    $idusuario = $_SESSION['idusuario'];
-    $nusuario = $_SESSION['nusuario'];
-}
-else
-{
-	header("location: ../view/home.php");
-}
+//     $idusuario = $_SESSION['idusuario'];
+//     $nusuario = $_SESSION['nusuario'];
+// }
+// else
+// {
+// 	header("location: ../view/home.php");
+// }
 
 include "../model/receitaOP.class.php";
 $receitaop= 		new ReceitaOP();
@@ -29,8 +29,32 @@ $linha=sizeof($obj_ingredientes);
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="../css/home.css">
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+
+		$('#pesquisaing').autocomplete({
+		source: function(request, response){
+			$.ajax({
+				url:"../controller/ingrediente.php",
+				dataType:"json",
+				data:{ing:request.term},
+				success: function(data){
+					response(data);
+				}
+			});
+		}
+
+		});
+
+		});
+	</script>
+
 	<title>Cadastro Usuario</title>
 </head>
 <body>
@@ -57,7 +81,14 @@ $linha=sizeof($obj_ingredientes);
 			</select>
 		</div>
 
-		<div class="input-group form-group">
+
+		<div class="">
+			<input type="text" id="pesquisaing">
+		</div>
+
+
+
+		<div class="input-group form-group margin-t5">
 			<span>Descrição</span>
 			<textarea class="form-control" name="descricao" required></textarea>
 		</div>
