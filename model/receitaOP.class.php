@@ -67,6 +67,20 @@ public function getAll() {
   }
 }
 
+public function getUsuarioReceitas() {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita FROM receitas, nota_usuario WHERE receitas.idreceita = nota_usuario.idreceita AND nota_usuario.idusuario = 4
+        ORDER BY nota_usuario.notausuario DESC");
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+
 public function getReceita($id) {
   try {
    $stmt=$this->pdo->prepare('SELECT * FROM receitas 

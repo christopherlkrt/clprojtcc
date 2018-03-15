@@ -35,7 +35,10 @@ class Usuario{
 	{
 		return $this->email;
 	}
-
+	public function setId($idusuario)
+	{
+		 $this->idusuario=$idusuario;
+	}
 	public function getId()
 	{
 		return $this->idusuario;

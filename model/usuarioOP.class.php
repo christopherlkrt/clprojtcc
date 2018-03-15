@@ -35,14 +35,14 @@ class UsuarioOP extends BD{
     print $e->getMessage(); }
 
   }
-  public function updado(Categoria $categoria){
+  public function update(Usuario $usuario){
    try{
     $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? 
-      WHERE id_user= ? ');
-    $stmt->bindValue(1, $categoria->getNome());
-    $stmt->bindValue(2, $categoria->getEmail());
-    $stmt->bindValue(3, $categoria->getSenha());
-    $stmt->bindValue(4, $categoria->getUid());
+      WHERE idusuario= ? ');
+    $stmt->bindValue(1, $usuario->getNome());
+    $stmt->bindValue(2, $usuario->getSenha());
+    $stmt->bindValue(3, $usuario->getEmail());
+    $stmt->bindValue(4, $usuario->getId());
     if ($stmt->execute())
     { 	
      echo "Registro Alterado com sucesso";
@@ -64,6 +64,19 @@ public function getAll() {
     print $e->getMessage();
   }
 }
+
+public function getEdit($idusuario) {
+  try {
+    $resultado = $this->pdo->query(
+      "SELECT * FROM usuarios where idusuario='$idusuario'" );
+    $linha=$resultado->fetch();
+    return $linha;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
 function logar($email, $senha)
 { 
   $this->email = $email;

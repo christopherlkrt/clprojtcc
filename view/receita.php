@@ -1,9 +1,9 @@
 <?php
 session_start();
-if(isset($_SESSION['idUsuario'])){
+if(isset($_SESSION['idusuario'])){
 
-    $idUsuario = $_SESSION['idUsuario'];
-    $nUsuario = $_SESSION['nUsuario'];
+    $idusuario = $_SESSION['idusuario'];
+    $nusuario = $_SESSION['nusuario'];
 }
 
 $id=$_GET['idreceita'];
@@ -30,7 +30,7 @@ $linha=sizeof($obj_ingrediente);
 <body>
 	<header>
 		<nav class="navbar navbar-fixed-top navbar-paprica">
-			<div class ="container-fluid  col-md-offset-2">
+			<div class ="container-fluid  col-md-offset-1">
                 <div class="navbar-header col-md-2">
 				<a class="navbar-brand branco" href="home.php">Paprica</a>
                 </div>
@@ -44,12 +44,12 @@ $linha=sizeof($obj_ingrediente);
 				</div>
 
                 <?php
-                if(isset($_SESSION['idUsuario'])){
+                if(isset($_SESSION['idusuario'])){
 
                 ?>
                 <div class="navbar-right col-md-2">
 				<ul class="nav navbar-nav">
-					<li><a class="branco" href="usuario.html"><?php echo $nUsuario ?></a></li>
+					<li><a class="branco" href="usuario.html"><?php echo $nusuario ?></a></li>
 				</ul>
                 </div>
 

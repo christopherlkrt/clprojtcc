@@ -34,16 +34,33 @@ else if (isset($_POST['entrar']))
 	}
 	else{
 
-		$idUsuario = $obj->idUsuario;
-		$nUsuario=$obj->nomeUsuario;
+		$idUsuario = $obj->idusuario;
+		$nUsuario=$obj->nomeusuario;
 
-		$_SESSION['idUsuario']=$idUsuario;
-		$_SESSION['nUsuario']=$nUsuario;
+		$_SESSION['idusuario']=$idUsuario;
+		$_SESSION['nusuario']=$nUsuario;
 
 		header("location: ../view/home.php");
 
 	}
 
+}
+else if (isset($_POST['salvar']))
+{
+	$idusuario = $_SESSION['idusuario'];
+	$nome=$_POST['nome'];
+	$email=$_POST['email'];
+	$senha=$_POST['senha'];
+
+	$usuario = new Usuario();
+	$usuario-> setId($idusuario);
+	$usuario-> setNome($nome);
+	$usuario-> setEmail($email);
+	$usuario-> setSenha($senha);
+
+	$usuarioop= new UsuarioOP();
+	$usuarioop-> update($usuario);
+	$resultado= $usuarioop-> getAll();
 }
 
 

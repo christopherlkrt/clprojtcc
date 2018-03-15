@@ -1,12 +1,15 @@
 <?php
 session_start();
-if(isset($_SESSION['idusuario'])){
-
+if(isset($_GET['logout'])){
+    session_destroy();
+    unset($_SESSION['idusuario']);
+    unset($_SESSION['nusuario']);
+    echo "entrou";
+}
+else if(isset($_SESSION['idusuario'])){
     $idusuario = $_SESSION['idusuario'];
     $nusuario = $_SESSION['nusuario'];
-}
-else if(isset($_POST['logout'])){
-    session_destroy();
+    
 }
 include "../model/receitaOP.class.php";
 $receitaop= new ReceitaOP();
@@ -31,7 +34,7 @@ $linhas=sizeof($obj);
 <body>
 	<header>
 		<nav class="navbar navbar-fixed-top navbar-paprica">
-			<div class ="container-fluid  col-md-offset-2">
+			<div class ="container-fluid  col-md-offset-1">
                 <div class="navbar-header col-md-2">
 				<a class="navbar-brand branco" href="home.php">Paprica</a>
                 </div>
@@ -53,9 +56,9 @@ $linhas=sizeof($obj);
 					<li><a class="branco dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><?php echo $nusuario ?></a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="#0">Minha Conta</a></li>
+                            <li><a href="conta.php">Minha Conta</a></li>
                             <li><a href="cadreceita.php">Enviar Receita</a></li>
-                            <li><a href="home.php" name="logout">Sair</a></li>
+                            <li><a href="home.php?logout" name="logout">Sair</a></li>
                         </ul>
 
 

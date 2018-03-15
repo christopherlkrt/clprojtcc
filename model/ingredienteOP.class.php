@@ -25,10 +25,10 @@ class IngredienteOP extends BD{
 // }
 
 
-public function buscaIngredientes($ing) {
+public function buscaIngredientes($name) {
   try {
     $stmt = $this->pdo->query(
-      "SELECT nomeingrediente FROM ingredientes WHERE nomeingrediente LIKE '%$ing%' ORDER BY nomeingrediente ASC" );
+      "SELECT nomeingrediente FROM ingredientes WHERE nomeingrediente LIKE '%$name%' ORDER BY nomeingrediente ASC" );
     $resultado=$stmt->fetchAll();
     return $resultado;
   }
