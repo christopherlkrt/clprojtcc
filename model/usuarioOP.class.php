@@ -37,12 +37,13 @@ class UsuarioOP extends BD{
   }
   public function update(Usuario $usuario){
    try{
-    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? 
+    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? , img = ? 
       WHERE idusuario= ? ');
     $stmt->bindValue(1, $usuario->getNome());
     $stmt->bindValue(2, $usuario->getSenha());
     $stmt->bindValue(3, $usuario->getEmail());
-    $stmt->bindValue(4, $usuario->getId());
+    $stmt->bindValue(4, $usuario->getImg());
+    $stmt->bindValue(5, $usuario->getId());
     if ($stmt->execute())
     { 	
      echo "Registro Alterado com sucesso";

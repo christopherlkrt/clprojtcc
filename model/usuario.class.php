@@ -5,6 +5,7 @@ class Usuario{
 	private $nome;
 	private $senha;
 	private $email;
+	private $img;
 
 	public function setNome($nome)
 	{
@@ -43,6 +44,13 @@ class Usuario{
 	{
 		return $this->idusuario;
 	}
-
+	public function setImg($img)
+	{
+		 $this->img=$img;
+	}
+	public function getImg()
+	{
+		return $this->img;
+	}
 }
 ?>

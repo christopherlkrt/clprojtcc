@@ -17,6 +17,10 @@
 	margin-top: 3%;
 }
 
+.margin-tmais{
+	margin-top:5%;
+}
+
 .no-margin-b{
 	position: absolute;
 	bottom: 0;
@@ -34,11 +38,21 @@ header .navbar { margin-bottom: 0; }
 }
 
 .paprica {
-	background-color: #FF5722; /*#F0460A;*/
+	background-color: #FF5722;  /*#F0460A;*/
+}
+
+.cinzou{
+	background-color: #ededed;
+}
+
+.caixabranca{
+	background-color: white;
+	display: table;
+	margin: 40px auto;
 }
 
 .branco {
-	color:white !important;
+	color:white;
  }
 
 .thumbnail-title{
@@ -88,6 +102,29 @@ li>a.branco:active{
 }
 ul {
   list-style-type: none;
+}
+
+.footer{
+	left: 0;
+	bottom: 0;
+	width: 100%;
+
+}
+
+.profile-user-pic{
+	
+	width: 15%;
+	height: 15%;
+}
+
+.menu-user-pic{
+	height: 24px;
+	width: 24px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: inline;
+	margin: 2px 6px 2px -8px;
+
 }
 
 /*ul.ingredientes:nth-child(even){

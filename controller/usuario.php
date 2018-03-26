@@ -47,8 +47,11 @@ else if (isset($_POST['entrar']))
 }
 else if (isset($_POST['salvar']))
 {
+	
 	$idusuario = $_SESSION['idusuario'];
 	$nome=$_POST['nome'];
+	$img=$_FILES['imgusuario']['name'];
+	$tmpimg=$_FILES['imgusuario']['tmp_name'];
 	$email=$_POST['email'];
 	$senha=$_POST['senha'];
 
@@ -57,10 +60,13 @@ else if (isset($_POST['salvar']))
 	$usuario-> setNome($nome);
 	$usuario-> setEmail($email);
 	$usuario-> setSenha($senha);
+	$usuario-> setImg($img);
 
 	$usuarioop= new UsuarioOP();
 	$usuarioop-> update($usuario);
 	$resultado= $usuarioop-> getAll();
+
+	move_uploaded_file($tmpimg, "../imgs/usuarios/".$img);
 }
 
 

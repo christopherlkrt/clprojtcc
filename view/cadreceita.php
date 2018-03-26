@@ -1,15 +1,15 @@
 <?php
 
-// session_start();
-// if(isset($_SESSION['idusuario'])){
+session_start();
+if(isset($_SESSION['idusuario'])){
 
-//     $idusuario = $_SESSION['idusuario'];
-//     $nusuario = $_SESSION['nusuario'];
-// }
-// else
-// {
-// 	header("location: ../view/home.php");
-// }
+    $idusuario = $_SESSION['idusuario'];
+    $nusuario = $_SESSION['nusuario'];
+}
+else
+{
+	header("location: ../view/home.php");
+}
 
 include "../model/receitaOP.class.php";
 $receitaop= 		new ReceitaOP();
@@ -28,77 +28,46 @@ $linha=sizeof($obj_ingredientes);
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/home.css">
-<!--<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">-->
-	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../bootstrap/css/bootstrap-tagsinput.css">
-	<style>
-	body{ font-family:calibri;}
-	.twitter-typeahead { display:initial !important; }
-	.bootstrap-tagsinput {line-height:40px;display:block !important;}
-	.bootstrap-tagsinput .tag {background:#09F;padding:5px;border-radius:4px;}
-	.tt-hint {top:2px !important;}
-	.tt-input{vertical-align:baseline !important;}
-	.typeahead { border: 1px solid #CCCCCC;border-radius: 4px;padding: 8px 12px;width: 300px;font-size:1.5em;}
-	.tt-menu { width:300px; }
-	span.twitter-typeahead .tt-suggestion {padding: 10px 20px;	border-bottom:#CCC 1px solid;cursor:pointer;}
-	span.twitter-typeahead .tt-suggestion:last-child { border-bottom:0px; }
-	.demo-label {font-size:1.5em;color: #686868;font-weight: 500;}
-	.bgcolor {max-width: 440px;height: 200px;background-color: #c3e8cb;padding: 40px 70px;border-radius:4px;margin:20px 0px;}
-	
-	</style>
-
-	<script src="../js/jquery-3.2.1.min.js"></script>
-	<script src="../js/typeahead.js"></script>
-
-	<!-- <script src="../js/jquery-ui.min.js"></script> -->
-	<script src="../bootstrap/js/bootstrap.min.js"></script>
-	<script src="../bootstrap/js/bootstrap-tagsinput.js"></script>
 
 	<script>
 		 $(document).ready(function() {
-		alert('teste2');
-		// $('#pesquisaing').autocomplete({
-		// source: function(request, response){
-		// 	$.ajax({
-		// 		url:"../controller/ingrediente.php",
-		// 		dataType:"json",
-		// 		data:{ing:request.term},
-		// 		success: function(data){
-		// 			response(data);
-		// 		}
-		// 	});
-		// }
+		
+		$('#pesquisaing').autocomplete({
+		source: function(request, response){
+			$.ajax({
+				url:"../controller/ingrediente.php",
+				dataType:"json",
+				data:{ing:request.term},
+				success: function(data){
+					console.log(data);
+					response(data);
+				}
 
-		// });
+			});
 
-		// });
-
-	  var countries = new Bloodhound({
-	  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-	  queryTokenizer: Bloodhound.tokenizers.whitespace,
-	  prefetch: {
-		url: 'countries.json',
-		filter: function(list) {
-		  return $.map(list, function(name) {
-			return { name: name }; });
-		  		alert('teste3');
 		}
-	  }
-	});
-	countries.initialize();
 
-	$('#tags-input').tagsinput({
-	  typeaheadjs: {
-		name: 'countries',
-		displayKey: 'name',
-		valueKey: 'name',
-		source: countries.ttAdapter()
-				alert('teste');
-	  }
-	});
+		});
 
-	 });
+
+
+		 $("#adding").click(function(){
+                var ing = document.getElementById("pesquisaing").value;
+                var qtd = document.getElementById("qtd").value;
+                var medida = document.getElementById("medida").value;
+                 $("#teste").append("<li><input type='hidden' name='qtd[]' value="+qtd+">"+qtd+" <input type='hidden' name='medida[]' value="+medida+">"+medida+" de <input type='hidden' name='ingrediente[]' value="+ing+">"+ing+" <span class='glyphicon glyphicon-remove'></span></li>");
+            });
+
+		   $('#teste').on("click",".glyphicon",function(e) {
+                e.preventDefault();
+               $(this).parent('li').remove();
+               // x--;
+        });
+
+
+
+		});
+
 
 
 
@@ -108,13 +77,13 @@ $linha=sizeof($obj_ingredientes);
 	<title>Cadastro Usuario</title>
 </head>
 <body>
-	<form action="../controller/receita.php" method="post" class="col-md-offset-5" enctype="multipart/form-data">
-		<div class="input-group form-group">
+	<form action="../controller/receita.php" method="post" class="col-md-offset-4" enctype="multipart/form-data">
+		<div class="input-group form-group margin-t5">
 			<span>Nome Receita</span>
 			<input type="text" class="form-control" name="nome" placeholder="Ex. Panquecas" required>
 		</div>
 	
-		<div class="input-group form-group">
+		<!-- <div class="input-group form-group">
 			<span>Ingredientes: </span>
 
 			<select name="Ingredientes" id="">
@@ -129,12 +98,29 @@ $linha=sizeof($obj_ingredientes);
 				}
 			?>
 			</select>
-		</div>
+		</div> -->
 
 
-		<div class="bgcolor">
-			<input type="text" id="tags-input" data-role="tagsinput" />
+
+		<div class="">
+			<input type="text" id="pesquisaing" placeholder="Ingrediente" required />
+			<input type="number" class="" name="qtd" id="qtd" placeholder="Quantidade" required >
+			<select class="" name="medida" id="medida" required >
+				<option value="Colher(es)">Colher(es)</option>
+				<option value="Unidade(s)">Unidade(s)</option>
+				<option value="Pacote(s)">Pacote(s)</option>
+				<option value="Lata(s)">Lata(s)</option>
+				<option value="Caixa(s)">Caixa(s)</option>
+			</select>
+			<input type="button" class="btn btn-default" name="adding" id="adding" value="+">
 		</div>
+
+			<div>
+				<ul id="teste">
+					
+
+				</ul>
+			</div>
 
 
 

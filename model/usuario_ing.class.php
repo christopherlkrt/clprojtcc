@@ -1,5 +1,4 @@
 <?php
-
 class Usuario_ing{
 	private $idingrediente;
 	private $idusuario;
@@ -22,6 +21,16 @@ public function setUsuario($idusuario)
 public function getUsuario()
 	{
 		return $this->idusuario;
+	}
+
+public function setInclui($inclui)
+	{
+		$this->inclui=$inclui;
+	}
+
+public function getInclui()
+	{
+		return $this->inclui;
 	}
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Receita_ingrediente{
+class ReceitaIng{
 	private $idingrediente;
 	private $idreceita;
 	private $quantia;
@@ -17,7 +17,7 @@ public function getIngrediente()
 
 public function setReceita($idreceita)
 	{
-		$this->idReceita=$idreceita;
+		$this->idreceita=$idreceita;
 	}
 
 public function getReceita()
@@ -33,6 +33,16 @@ public function setQuantia($quantia)
 public function getQuantia()
 	{
 		return $this->quantia;
+	}
+
+public function setMedida($medida)
+	{
+		$this->medida=$medida;
+	}
+
+public function getMedida()
+	{
+		return $this->medida;
 	}
 
 }

@@ -24,6 +24,35 @@ class ReceitaOP extends BD{
 
       if ($stmt->execute())
       { 	
+
+          $idreceita=$this->pdo->lastInsertId();
+
+          return $idreceita;
+
+      }
+      else
+      {
+       echo "Erro ao inserir";
+     }
+
+   } catch (PDOException  $e) {
+    print $e->getMessage(); }
+
+  }
+
+    public function inserirReceitaIng(ReceitaIng $receita_ingrediente) {
+      //print_r($categoria);
+    try {
+      $stmt = $this->pdo->prepare(
+        'INSERT INTO receita_ingrediente (idingrediente, idreceita, quantia, medida) VALUES (?,?,?,?)');
+
+      $stmt->bindValue(1, $receita_ingrediente->getIngrediente());
+      $stmt->bindValue(2, $receita_ingrediente->getReceita());
+      $stmt->bindValue(3, $receita_ingrediente->getQuantia());
+      $stmt->bindValue(4, $receita_ingrediente->getMedida());
+      
+      if ($stmt->execute())
+      {   
         header("location: ../view/home.php");
 
       }
@@ -36,6 +65,7 @@ class ReceitaOP extends BD{
     print $e->getMessage(); }
 
   }
+
   public function updado(Receita $receita){
    try{
     $stmt=$this->pdo->prepare('UPDATE receitas set nomereceita = ? , descricao= ? 
@@ -67,10 +97,10 @@ public function getAll() {
   }
 }
 
-public function getUsuarioReceitas() {
+public function getUsuarioReceitas($idusuario) {
   try {
     $stmt = $this->pdo->query(
-      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita FROM receitas, nota_usuario WHERE receitas.idreceita = nota_usuario.idreceita AND nota_usuario.idusuario = 4
+      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita FROM receitas, nota_usuario WHERE receitas.idreceita = nota_usuario.idreceita AND nota_usuario.idusuario = '$idusuario'
         ORDER BY nota_usuario.notausuario DESC");
     $resultado=$stmt->fetchAll();
     return $resultado;
