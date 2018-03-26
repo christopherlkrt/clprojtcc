@@ -1,7 +1,14 @@
 /* Rating Star Widgets Style */
+.rating-stars{
+	display: inline;
+	width: 30%;
+	height: 80%;
+}
+
 .rating-stars ul {
   list-style-type:none;
   padding:0;
+ 
   
   -moz-user-select:none;
   -webkit-user-select:none;
@@ -24,5 +31,5 @@
 
 /* Selected state of the stars */
 .rating-stars ul > li.star.selected > i.fa {
-  color:#FF912C;
+  color:#FF5722;
 }

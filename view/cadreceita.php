@@ -39,7 +39,6 @@ $linha=sizeof($obj_ingredientes);
 				dataType:"json",
 				data:{ing:request.term},
 				success: function(data){
-					console.log(data);
 					response(data);
 				}
 

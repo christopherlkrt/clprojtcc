@@ -7,7 +7,7 @@ class Nota_usuario{
 
 public function setUsuario($idusuario)
 	{
-		$this->idUsuario=$idusuario;
+		$this->idusuario=$idusuario;
 	}
 
 public function getUsuario()
@@ -17,7 +17,7 @@ public function getUsuario()
 
 public function setReceita($idreceita)
 	{
-		$this->idReceita=$idreceita;
+		$this->idreceita=$idreceita;
 	}
 
 public function getReceita()

@@ -35,6 +35,33 @@ class UsuarioOP extends BD{
     print $e->getMessage(); }
 
   }
+
+  public function inserirNota(Nota_usuario $nota_usuario) {
+    //print_r($categoria);
+  try {
+    $stmt = $this->pdo->prepare(
+      'INSERT INTO nota_usuario (idusuario, idreceita, notausuario) VALUES (?,?,?)');
+
+    $stmt->bindValue(1, $nota_usuario->getUsuario());
+    $stmt->bindValue(2, $nota_usuario->getReceita());
+    $stmt->bindValue(3, $nota_usuario->getNota());
+
+    if ($stmt->execute())
+    {   
+      header("Refresh:0");
+
+   }
+   else
+   {
+     echo "Erro ao inserir";
+   }
+
+  } catch (PDOException  $e) {
+  print $e->getMessage(); }
+
+  }
+
+
   public function update(Usuario $usuario){
    try{
     $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? , img = ? 

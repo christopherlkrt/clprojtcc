@@ -27,28 +27,24 @@ $linha=sizeof($obj_ingrediente);
 	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/home.css">
     <link rel="stylesheet" type="text/css" href="../css/star-rating.css">
-    <link rel="stylesheet" type="text/css" href="../css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../fafontello/css/fontello.css">
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-	<!-- <?php
+	<?php
 
     include "../header.php";
     ?>
- -->
+
   
 
     <div class="container margin-t5">
     <div class="row meio text-center">
-    	<div class="col-md-6 col-md-offset-2">
-            <h3 class="col-md-2">Preparo</h3>
-            <h3 class="col-md-2 col-md-offset-2">Tempo</h3>
-            <h3 class="col-md-2 col-md-offset-2">Nota</h3>
-            <!-- Rating Stars Box -->
-                  <div class="rating-stars text-center">
+        <!-- Rating Stars Box -->
+                  <div class="rating-stars text-center col-md-4">
                     <ul id="stars">
                       <li class="star" title="Poor" data-value="1">
                         <i class="fa fa-star fa-fw"></i>
@@ -67,6 +63,15 @@ $linha=sizeof($obj_ingrediente);
                       </li>
                     </ul>
                   </div>
+    	<div class="col-md-6">
+            <div class="row">
+            <h3 class="col-md-2">Preparo</h3>
+            <h3 class="col-md-2">Tempo</h3>
+            <h3 class="col-md-2">Nota</h3>
+            
+
+            </div>
+            </div>
         </div>
     </div>
 
@@ -95,7 +100,7 @@ $linha=sizeof($obj_ingrediente);
 
             <div class="col-md-8 min-alt">
 
-            <h2><?=$obj_receita['nomereceita']?></h2>    
+            <h2><?=$obj_receita['nomereceita']?></h2><input type="hidden" id="idreceita" value="<?=$obj_receita['idreceita']?>">   
             <p><?=$obj_receita['descricao']?><p>
 
             </div>
@@ -106,22 +111,10 @@ $linha=sizeof($obj_ingrediente);
 
 
 
-<footer>
-<div class="preto col-sm-12 margin-t5 no-margin-b">
-	<div class="col-sm-6"><h2>Paprica</h2>
-    <p>Paprica é uma fonte de receitas culinárias com o objetivo de suprir necessidades dos usuários que gostariam de filtrar o que procuram, utilizando seus ingredientes para fazer uma busca mais específica ou excluindo alguns ingredientes para quem necessitar ou apenas preferir.</p>
-    </div>
-	
-	<div class="col-sm-6 borda">
-       <a href=""><i class="icon-facebook icones-redes"></i></a>
-       <a href=""><i class="icon-instagram icones-redes"></i></a>
-       <a href=""><i class="icon-twitter icones-redes"></i></a>
-    </div>
+<?php
 
-
-</div>
-	
-</footer>
+    include "../footer.php";
+    ?>
 
   <!--modals-->
 
@@ -189,4 +182,71 @@ $linha=sizeof($obj_ingrediente);
      </div><!--modal-dialog-->
  </div><!--modal-->
 </body>
+
+<script>
+    
+$(document).ready(function(){
+  
+  /* 1. Visualizing things on Hover - See next part for action on click */
+  $('#stars li').on('mouseover', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+   
+    // Now highlight all the stars that's not after the current hovered star
+    $(this).parent().children('li.star').each(function(e){
+      if (e < onStar) {
+        $(this).addClass('hover');
+      }
+      else {
+        $(this).removeClass('hover');
+      }
+    });
+    
+  }).on('mouseout', function(){
+    $(this).parent().children('li.star').each(function(e){
+      $(this).removeClass('hover');
+    });
+  });
+  
+  
+  /* 2. Action to perform on click */
+  $('#stars li').on('click', function(){
+    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    var stars = $(this).parent().children('li.star');
+    
+    for (i = 0; i < stars.length; i++) {
+      $(stars[i]).removeClass('selected');
+    }
+    
+    for (i = 0; i < onStar; i++) {
+      $(stars[i]).addClass('selected');
+    }
+
+    <?php 
+    if(isset($_SESSION['idusuario']))
+    {
+    ?>
+
+     var receita=document.getElementById("idreceita").value;
+    $.post("../controller/nota_usuario.php",
+    {
+        idreceita: receita,
+        nota: onStar
+
+    });
+    <?php
+    }
+    ?>
+
+  });
+  
+  
+});
+
+
+function responseMessage(msg) {
+  $('.success-box').fadeIn(200);  
+  $('.success-box div.text-message').html("<span>" + msg + "</span>");
+}
+
+</script>
 </html>
