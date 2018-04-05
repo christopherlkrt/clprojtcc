@@ -134,6 +134,18 @@ catch (PDOException  $e) {
 }
 }
 
+public function getNotaReceita($idreceita) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT SUM(notausuario) / COUNT(idreceita) as media from nota_usuario where idreceita='$idreceita'" );
+    $resultado=$stmt->fetch();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
 
 public function getIngrediente($id) {
   try {
@@ -170,8 +182,6 @@ public function getAllingredientes() {
     print $e->getMessage();
   }
 }
-
-
 
 
 

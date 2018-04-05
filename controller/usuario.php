@@ -36,9 +36,11 @@ else if (isset($_POST['entrar']))
 
 		$idUsuario = $obj->idusuario;
 		$nUsuario=$obj->nomeusuario;
+		$imgusuario=$obj->img;
 
 		$_SESSION['idusuario']=$idUsuario;
 		$_SESSION['nusuario']=$nUsuario;
+		$_SESSION['imgusuario']=$imgusuario;
 
 		header("location: ../view/home.php");
 

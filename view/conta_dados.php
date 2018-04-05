@@ -6,13 +6,12 @@ if(isset($_SESSION['idusuario'])){
 
     $idusuario = $_SESSION['idusuario'];
     $nusuario = $_SESSION['nusuario'];
+    $imgusuario = $_SESSION['imgusuario'];
     $usuarioop= new UsuarioOP();
     $linha= $usuarioop-> getEdit($idusuario);
     // var_dump($linha);
 
-    if (!$linha['img']) {
-        $linha['img'] = 'user-icon.png';
-    }
+    
     
 }
 else if(isset($_POST['logout'])){
@@ -95,7 +94,7 @@ else if(!isset($_SESSION['idusuario'])){
 
 
                     <div class="input-group form-group margin-t5">
-                        <img src="../imgs/usuarios/<?=$linha['img']?>" class="img-responsive img-circle profile-user-pic" alt="Imagem do Usuario">
+                        <img src="../imgs/usuarios/<?=$imgusuario?>" class="img-responsive img-circle profile-user-pic" alt="Imagem do Usuario">
                         <span>Imagem</span>
                         <input type="file" class="form-control" name="imgusuario">
                     </div>

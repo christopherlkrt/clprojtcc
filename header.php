@@ -20,7 +20,7 @@
                 ?>
                 <div class="navbar-right col-md-2">
 				<ul class="nav navbar-nav nav-pills">
-					<li><a class="branco dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><img src="../imgs/usuarios/<?=$linha['img']?>" class="img-responsive menu-user-pic" alt="Imagem do Usuario"><?php echo $nusuario ?><b class="caret"></b></a>
+					<li><a class="branco dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><img src="../imgs/usuarios/<?=$imgusuario?>" class="img-responsive menu-user-pic" alt="Imagem do Usuario"><?php echo $nusuario ?><b class="caret"></b></a>
 
                         <ul class="dropdown-menu">
                             <li><a href="conta_dados.php">Minha Conta</a></li>

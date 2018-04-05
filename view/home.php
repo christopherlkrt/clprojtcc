@@ -9,16 +9,20 @@ if(isset($_GET['logout'])){
 else if(isset($_SESSION['idusuario'])){
     $idusuario = $_SESSION['idusuario'];
     $nusuario = $_SESSION['nusuario'];
-    
+    if (!$_SESSION['imgusuario']){
+        $imgusuario = 'user-icon.png';
+    }
+    else if (isset($_SESSION['imgusuario'])) {
+        $imgusuario = $_SESSION['imgusuario'];
+    }
 }
+
 include "../model/receitaOP.class.php";
 $receitaop= new ReceitaOP();
 $obj=$receitaop-> getAll();
 $linhas=sizeof($obj);
 
-if (!$linha['img']) {
-        $linha['img'] = 'user-icon.png';
-    }
+
 
 
 ?>
