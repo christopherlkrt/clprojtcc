@@ -81,25 +81,6 @@ $linha=sizeof($obj_ingredientes);
 			<span>Nome Receita</span>
 			<input type="text" class="form-control" name="nome" placeholder="Ex. Panquecas" required>
 		</div>
-	
-		<!-- <div class="input-group form-group">
-			<span>Ingredientes: </span>
-
-			<select name="Ingredientes" id="">
-			<?php
-				for($i=0;$i<$linha;$i++)
-				{
-			?>
-
-			<option value="<?=$obj_ingredientes[$i]['idingrediente']?>" required><?=$obj_ingredientes[$i]['nomeingrediente']?></option>
-
-			<?php
-				}
-			?>
-			</select>
-		</div> -->
-
-
 
 		<div class="">
 			<input type="text" id="pesquisaing" placeholder="Ingrediente" required />

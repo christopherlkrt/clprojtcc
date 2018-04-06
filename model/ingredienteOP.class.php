@@ -100,6 +100,23 @@ public function incluiIngrediente(Usuario_ing $ingrediente) {
 
   }
 
+  public function deletaIngrediente($idingrediente){
+  try{
+    $stmt=$this->pdo->prepare('
+      DELETE FROM usuario_ing WHERE idingrediente= ?');
+    $stmt->bindValue(1, $idingrediente);
+    if ($stmt->execute())
+    {   
+      echo "Registro exluido com sucesso";
+    }
+    else
+    {
+      echo "Erro ao deletar";
+    }
+  } catch (PDOException  $e) {
+   print $e->getMessage(); }
+ }
+
 
 }
 

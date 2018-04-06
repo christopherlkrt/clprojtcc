@@ -56,36 +56,32 @@ if(isset($_SESSION['idusuario'])){
 
     <div class="container margin-t5">
     <div class="row meio text-center">
-        <!-- Rating Stars Box -->
+    	            <!-- Rating Stars Box -->
+            <div class="rating-stars text-center col-md-3 rate-size">
                 <h3>Avalie</h3>
-                  <div class="rating-stars text-center col-md-4">
-                    <ul id="stars">
-                      <li class="star <?php if($nota_usuario['notausuario']>=1) echo 'selected'; ?>" title="Poor" data-value="1">
-                        <i class="fa fa-star fa-fw"></i>
-                      </li>
-                      <li class="star <?php if($nota_usuario['notausuario']>=2) echo 'selected'; ?>" title="Fair" data-value="2">
-                        <i class="fa fa-star fa-fw"></i>
-                      </li>
-                      <li class="star <?php if($nota_usuario['notausuario']>=3) echo 'selected'; ?>" title="Good" data-value="3">
-                        <i class="fa fa-star fa-fw"></i>
-                      </li>
-                      <li class="star <?php if($nota_usuario['notausuario']>=4) echo 'selected'; ?>" title="Excellent" data-value="4">
-                        <i class="fa fa-star fa-fw"></i>
-                      </li>
-                      <li class="star <?php if($nota_usuario['notausuario']>=5) echo 'selected'; ?>" title="WOW!!!" data-value="5">
-                        <i class="fa fa-star fa-fw"></i>
-                      </li>
-                    </ul>
-                  </div>
-    	<div class="col-md-6">
-            <div class="row">
-            <h3 class="col-md-2">Preparo</h3>
-            <h3 class="col-md-2">Tempo</h3>
-            <h3 class="col-md-2">Nota <?=$nota_receita['media']?></h3>
+                <ul id="stars">
+                  <li class="star <?php if($nota_usuario['notausuario']>=1) echo 'selected'; ?>" title="Poor" data-value="1">
+                    <i class="fa fa-star fa-fw"></i>
+                  </li>
+                  <li class="star <?php if($nota_usuario['notausuario']>=2) echo 'selected'; ?>" title="Fair" data-value="2">
+                    <i class="fa fa-star fa-fw"></i>
+                  </li>
+                  <li class="star <?php if($nota_usuario['notausuario']>=3) echo 'selected'; ?>" title="Good" data-value="3">
+                    <i class="fa fa-star fa-fw"></i>
+                  </li>
+                  <li class="star <?php if($nota_usuario['notausuario']>=4) echo 'selected'; ?>" title="Excellent" data-value="4">
+                    <i class="fa fa-star fa-fw"></i>
+                  </li>
+                  <li class="star <?php if($nota_usuario['notausuario']>=5) echo 'selected'; ?>" title="WOW!!!" data-value="5">
+                    <i class="fa fa-star fa-fw"></i>
+                  </li>
+                </ul>
+            </div>
+            <h3 class="col-md-3">Preparo</h3>
+            <h3 class="col-md-3">Tempo</h3>
+            <h3 class="col-md-3">Nota <?=$nota_receita['media']?></h3>
             
 
-            </div>
-            </div>
         </div>
     </div>
 

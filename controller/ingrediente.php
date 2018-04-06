@@ -18,11 +18,16 @@ $indice++;
 
 echo json_encode($vetor2);
 }
-else if (isset($_POST['adding']))
+else if (isset($_POST['add']))
 {
-	$idingrediente = $_POST['ing'];
+	
+
+	$vetoringredientes = explode(',', $_POST['adding']);
 	$idusuario=$_SESSION['idusuario'];
 	$inclui='sim';
+
+	foreach ($vetoringredientes as $indice => $idingrediente) {
+		
 	$ingrediente = new Usuario_ing();
 	$ingrediente -> setIngrediente($idingrediente);
 	$ingrediente -> setUsuario($idusuario);
@@ -30,12 +35,22 @@ else if (isset($_POST['adding']))
 
 	$ingredienteop = new IngredienteOP();
 	$adicionaing = $ingredienteop->incluiIngrediente($ingrediente);
-} 
-else if(isset($_POST['removeing'])){
 
-	$idingrediente = $_POST['ing'];
+	}
+
+
+
+	
+	
+} 
+else if(isset($_POST['remove'])){
+
+	$vetoringredientes = explode(',', $_POST['removeing']);
 	$idusuario=$_SESSION['idusuario'];
 	$inclui='nao';
+
+	foreach ($vetoringredientes as $indice => $idingrediente) {
+		
 	$ingrediente = new Usuario_ing();
 	$ingrediente -> setIngrediente($idingrediente);
 	$ingrediente -> setUsuario($idusuario);
@@ -43,8 +58,21 @@ else if(isset($_POST['removeing'])){
 
 	$ingredienteop = new IngredienteOP();
 	$adicionaing = $ingredienteop->incluiIngrediente($ingrediente);
-}
 
+	}
+}
+else if (isset($_POST['deletaing'])) {
+
+	$idingrediente = $_POST['deletaing'];
+
+	$ingrediente = new Usuario_ing();
+	$ingrediente->setIngrediente($idingrediente);
+
+	$ingredienteop = new IngredienteOP();
+	$deleta = $ingredienteop->deletaIngrediente($idingrediente);
+
+
+}
 
 // include "../model/ingrediente.class.php";
 // include "../model/ingredienteOP.class.php";
