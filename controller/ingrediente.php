@@ -18,7 +18,7 @@ $indice++;
 
 echo json_encode($vetor2);
 }
-else if (isset($_POST['add']))
+else if (isset($_POST['adding']))
 {
 	
 

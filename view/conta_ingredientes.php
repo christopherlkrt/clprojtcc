@@ -17,16 +17,16 @@ $linhas2=sizeof($obj2);
 </head>
 <body>
 
-<form action="../controller/ingrediente.php" class="" method="post">
+
   <div class="row margin-t5 form-inline">
     <div class="col-md-4 col-md-offset-2">
-      <input type="text" class="form-control tags-auto" id="tags-input" name="adding">
-      <input type="submit" onclick="location.reload()" class="btn btn-default" name="add" value="+">
+      <input type="text" class="form-control tags-auto" id="tags-input" name="adding" id="adding">
+      <input type="submit" class="btn btn-default" name="add" id="add" value="+">
     </div>
 
      <div class="col-md-4 col-md-offset-2 form-group">
       <input type="text" class="form-control tags-auto" id="tags-input" name="removeing">
-      <input type="submit" class="btn btn-default" name="remove" value="+">
+      <input type="submit" class="btn btn-default" name="remove" id="remove" value="+">
     </div>
   </div>
     
@@ -70,7 +70,7 @@ $linhas2=sizeof($obj2);
           </ul>
         </div>
         </div>
-        </form>
+        
 
 </body>
 </html>
@@ -115,9 +115,28 @@ $linhas2=sizeof($obj2);
 
                $(this).parent('li').remove();
 
-
                
         });
+
+
+       $('.form-inline').on("click","#add",function(e) {
+                e.preventDefault();
+               
+                var adding = $(this).prev().val();
+               
+                $.post("../controller/ingrediente.php",
+              {
+                  adding: adding
+              });
+
+               $("#retorno").load("conta_ingredientes.php");
+               
+        });
+
+        // $( "#add" ).click(function() {
+        //   alert($(this).parent('input').attr('value'));
+        // });
+
 
 
   </script>
