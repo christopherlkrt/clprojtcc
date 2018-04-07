@@ -12,7 +12,7 @@ class ReceitaOP extends BD{
   }
 
   public function inserir(Receita $receita) {
-    	//print_r($categoria);
+  
     try {
       $stmt = $this->pdo->prepare(
         'INSERT INTO receitas (nomereceita, descricao, imgreceita, idusuario) VALUES (?,?,?,?)');
@@ -40,6 +40,7 @@ class ReceitaOP extends BD{
 
   }
 
+  //receita_ing
     public function inserirReceitaIng(ReceitaIng $receita_ingrediente) {
       //print_r($categoria);
     try {
@@ -65,6 +66,28 @@ class ReceitaOP extends BD{
     print $e->getMessage(); }
 
   }
+
+  public function getIdporNome($ing) {
+  try {
+   $stmt=$this->pdo->prepare("SELECT idingrediente FROM ingredientes where nomeingrediente='$ing'");
+
+   if ($stmt->execute())
+   {   
+    $resultado=$stmt->fetch();
+    return $resultado['idingrediente'];
+  }
+  else
+  {
+   echo "Erro ao alterar";
+ }
+
+}
+catch (PDOException  $e) {
+  print $e->getMessage();
+}
+}
+
+
 
   public function updado(Receita $receita){
    try{

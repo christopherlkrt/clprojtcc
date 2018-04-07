@@ -54,6 +54,7 @@ $linha=sizeof($obj_ingredientes);
                 var ing = document.getElementById("pesquisaing").value;
                 var qtd = document.getElementById("qtd").value;
                 var medida = document.getElementById("medida").value;
+                
                  $("#teste").append("<li><input type='hidden' name='qtd[]' value="+qtd+">"+qtd+" <input type='hidden' name='medida[]' value="+medida+">"+medida+" de <input type='hidden' name='ingrediente[]' value="+ing+">"+ing+" <span class='glyphicon glyphicon-remove'></span></li>");
             });
 

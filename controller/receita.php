@@ -27,16 +27,18 @@ foreach ($_POST['ingrediente'] as $key => $value) {
 	//echo $value."   ";
 	$ing = explode("-", $value);
 
-    $idingrediente=$ing[0];
+    $ingrediente=$ing[$key];
     $qtd=$_POST['qtd'][$key];
     $medida=$_POST['medida'][$key];
 
+    $idingrediente=$receitaop-> getIdporNome($ingrediente);
 
 	$receita_ingrediente = new ReceitaIng();
 	$receita_ingrediente -> setIngrediente($idingrediente);
 	$receita_ingrediente -> setReceita($idreceita);
 	$receita_ingrediente -> setQuantia($qtd);
 	$receita_ingrediente -> setMedida($medida);
+
 
 	$receitaop-> inserirReceitaIng($receita_ingrediente);
 
