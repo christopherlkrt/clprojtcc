@@ -83,9 +83,10 @@ class UsuarioOP extends BD{
   print $e->getMessage(); }
 }
 public function getAll() {
-	try {
-    $resultado = $this->pdo->query(
+  try {
+    $stmt = $this->pdo->query(
       "SELECT * FROM usuarios" );
+    $resultado=$stmt->fetchAll();
     return $resultado;
   }
   catch (PDOException  $e) {

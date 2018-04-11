@@ -5,6 +5,8 @@ include "../model/receita_ingrediente.class.php";
 include "../model/receitaOP.class.php";
 if (isset($_POST['cadastro']))
 {
+	
+
 	$nomereceita=	$_POST['nome'];
 	$descricao=		$_POST['descricao'];
 	$imgreceita=	$_FILES['imgreceita']['name'];
@@ -24,10 +26,10 @@ if (isset($_POST['cadastro']))
 	move_uploaded_file($tmpimgreceita, "../imgs/receitas/".$imgreceita);
 
 foreach ($_POST['ingrediente'] as $key => $value) {
-	//echo $value."   ";
-	$ing = explode("-", $value);
+	
+	
 
-    $ingrediente=$ing[$key];
+    $ingrediente=$_POST['ingrediente'][$key];
     $qtd=$_POST['qtd'][$key];
     $medida=$_POST['medida'][$key];
 

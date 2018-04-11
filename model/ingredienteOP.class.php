@@ -36,6 +36,18 @@ public function listAll(){
   }
 }
 
+public function getAll() {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM ingredientes" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
 public function buscaIngredientes($ing) {
   try {
     $stmt = $this->pdo->query(
