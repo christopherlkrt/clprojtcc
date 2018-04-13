@@ -137,11 +137,11 @@ public function getNotaUsuario($idusuario, $idreceita) {
 }
 
 
-public function delete($id_user){
+public function deletar($idusuario){
   try{
     $stmt=$this->pdo->prepare('
-      DELETE FROM usuarios WHERE id_user= ?');
-    $stmt->bindValue(1, $id_user);
+      DELETE FROM usuarios WHERE idusuario= ?');
+    $stmt->bindValue(1, $idusuario);
     if ($stmt->execute())
     {   
       echo "Registro exluido com sucesso";
@@ -153,6 +153,7 @@ public function delete($id_user){
   } catch (PDOException  $e) {
    print $e->getMessage(); }
  }
+ 
 }
 
 

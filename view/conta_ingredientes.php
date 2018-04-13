@@ -42,7 +42,7 @@ $linhas2=sizeof($obj2);
                  ?>
                         
                       
-                                 <h3 class="thumbnail-title"><li name="<?=$obj[$i]['idingrediente']?>"><?=$obj[$i]['nomeingrediente']?><span class="glyphicon glyphicon-remove"></li></h3>
+                                 <h3 class="thumbnail-title"><li name="<?=$obj[$i]['idingrediente']?>"><?=$obj[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
         
         <?php 
             }
@@ -60,7 +60,7 @@ $linhas2=sizeof($obj2);
                  ?>
                         
         
-                                 <h3 class="thumbnail-title"><li name="<?=$obj2[$i]['idingrediente']?>"><?=$obj2[$i]['nomeingrediente']?><span class="glyphicon glyphicon-remove"></li></h3>
+                                 <h3 class="thumbnail-title"><li name="<?=$obj2[$i]['idingrediente']?>"><?=$obj2[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
         
         <?php 
             }
@@ -105,7 +105,7 @@ $linhas2=sizeof($obj2);
     }
   });
 
-   $('.lista-ingredientes').on("click",".glyphicon",function(e) {
+   $('.lista-ingredientes').on("click",".icon-cancel",function(e) {
                 e.preventDefault();
                 var deletaing= $(this).parent('li').attr('name');
                 $.post("../controller/ingrediente.php",
@@ -133,9 +133,21 @@ $linhas2=sizeof($obj2);
                
         });
 
-        // $( "#add" ).click(function() {
-        //   alert($(this).parent('input').attr('value'));
-        // });
+      $('.form-inline').on("click","#remove",function(e) {
+        e.preventDefault();
+       
+        var removeing = $(this).prev().val();
+       
+        $.post("../controller/ingrediente.php",
+      {
+          removeing: removeing
+      });
+
+       $("#retorno").load("conta_ingredientes.php");
+       
+      });
+
+
 
 
 

@@ -76,6 +76,14 @@ else if (isset($_POST['entrar']))
 	}
 
 }
+else if (isset($_POST['deletar'])) {
+	$idreceita = $_POST['deletar'];
+	
+	$receitaop = new ReceitaOP();
+	$deletar = $receitaop->deletar($idreceita);
+
+
+}
 
 
 ?>

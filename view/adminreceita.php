@@ -1,35 +1,11 @@
 <?php
-session_start();
-include "../model/usuario.class.php";
-if(isset($_SESSION['idusuario'])){
-
-    $idusuario = $_SESSION['idusuario'];
-    $nusuario = $_SESSION['nusuario'];
-    $imgusuario = $_SESSION['imgusuario'];
-    if (!$_SESSION['imgusuario']){
-        $imgusuario = 'user-icon.png';
-    }
-    else if (isset($_SESSION['imgusuario'])) {
-        $imgusuario = $_SESSION['imgusuario'];
-    }
-
-}
-else if(isset($_POST['logout'])){
-    session_destroy();
-    header("location: ../view/home.php");
-}
-else if(!isset($_SESSION['idusuario'])){
-    header("location: ../view/home.php");
-}
 
 include "../model/receitaOP.class.php";
 $receitaop = new ReceitaOP();
-$objreceitas = $receitaop->getAll();
+$objreceitas = $receitaop->getAllmesmo();
 $linhas = sizeof($objreceitas);
 
 ?>
-
-<body class="cinzou">
 
      <div class="row caixabranca">
         <div class="col-xs-12">
@@ -55,7 +31,7 @@ $linhas = sizeof($objreceitas);
                   <th>Nome</th>
                   <th>Usuário</th>
                   <th>Status</th>
-                  <th>Descricao</th>
+                  <th>Operações</th>
                 </tr>
                 <?php
                 for ($i=0; $i < $linhas ; $i++) { 
@@ -63,13 +39,32 @@ $linhas = sizeof($objreceitas);
                 <tr>
                   <td><?=$objreceitas[$i]['idreceita']?></td>
                   <td><?=$objreceitas[$i]['nomereceita']?></td>
-                  <td>?</td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td><?=$objreceitas[$i]['descricao']?></td>
+                  <?php if ($objreceitas[$i]['idusuario']==null) {
+                    
+                  
+                  ?>
+                  <td> </td>
+                  <?php } else { ?>
+                  <td><?=$objreceitas[$i]['idusuario']?></td>
+
+                  <?php }
+
+                    if ($objreceitas[$i]['statusreceita'] == 0 ) {
+                      
+                    ?>
+                  <td><span class="label label-warning">Pendente</span></td>
+                  <?php
+                  }
+                  else { ?>
+                  <td><span class="label label-success">Aprovada</span></td>
+                  <?php
+                  } ?>
+                  <td name="<?=$objreceitas[$i]['idreceita']?>"><button class="btn btn-default"><i class="icon-ok"></i>Aprovar</button><button class="btn btn-default"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarrec"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
-                <?php
+                 <?php
                 }
                 ?>
+                <td><button class="btn btn-default"><i class="icon-plus"></i>Adicionar</button></td>
               </table>
             </div>
             <!-- /.box-body -->
@@ -78,6 +73,19 @@ $linhas = sizeof($objreceitas);
         </div>
       </div>
 
+      <script>
+         $('.table').on("click","#deletarrec",function(e) {
+        e.preventDefault();
+       
+        var deletar = $(this).parent('td').attr('name');
 
-</body>
-</html>
+        $.post("../controller/receita.php",
+      {
+          deletar: deletar
+      });
+
+       $("#retorno").load("adminreceita.php");
+       
+      });
+
+      </script>

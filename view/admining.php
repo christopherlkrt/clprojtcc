@@ -1,27 +1,4 @@
 <?php
-session_start();
-include "../model/usuario.class.php";
-if(isset($_SESSION['idusuario'])){
-
-    $idusuario = $_SESSION['idusuario'];
-    $nusuario = $_SESSION['nusuario'];
-    $imgusuario = $_SESSION['imgusuario'];
-
-    if (!$_SESSION['imgusuario']){
-        $imgusuario = 'user-icon.png';
-    }
-    else if (isset($_SESSION['imgusuario'])) {
-        $imgusuario = $_SESSION['imgusuario'];
-    }
-
-}
-else if(isset($_POST['logout'])){
-    session_destroy();
-    header("location: ../view/home.php");
-}
-else if(!isset($_SESSION['idusuario'])){
-    header("location: ../view/home.php");
-}
 
 include "../model/ingredienteOP.class.php";
 $ingredienteop = new IngredienteOP();
@@ -29,8 +6,6 @@ $objing = $ingredienteop->getAll();
 $linhas = sizeof($objing);
 
 ?>
-
-<body class="cinzou">
 
      <div class="row caixabranca">
         <div class="col-xs-12">
@@ -54,9 +29,6 @@ $linhas = sizeof($objing);
                 <tr>
                   <th>ID</th>
                   <th>Nome</th>
-                  <th>Usuário</th>
-                  <th>Status</th>
-                  <th>Descricao</th>
                 </tr>
                 <?php
                 for ($i=0; $i < $linhas ; $i++) { 
@@ -64,12 +36,12 @@ $linhas = sizeof($objing);
                 <tr>
                   <td><?=$objing[$i]['idingrediente']?></td>
                   <td><?=$objing[$i]['nomeingrediente']?></td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>?</td>
+                  <td name="<?=$objing[$i]['idingrediente']?>"><button class="btn btn-default"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletaring"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                 <?php
                 }
                 ?>
+                <td><button class="btn btn-default"><i class="icon-plus"></i>Adicionar</button></td>
               </table>
             </div>
             <!-- /.box-body -->
@@ -79,5 +51,20 @@ $linhas = sizeof($objing);
       </div>
 
 
-</body>
-</html>
+<script>
+  
+      $('.table').on("click","#deletaring",function(e) {
+        e.preventDefault();
+       
+        var deletar = $(this).parent('td').attr('name');
+
+        $.post("../controller/ingrediente.php",
+      {
+          deletar: deletar
+      });
+
+       $("#retorno").load("admining.php");
+       
+      });
+
+</script>

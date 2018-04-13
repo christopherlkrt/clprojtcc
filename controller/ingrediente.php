@@ -38,12 +38,10 @@ else if (isset($_POST['adding']))
 
 	}
 
-
-
 	
 	
 } 
-else if(isset($_POST['remove'])){
+else if(isset($_POST['removeing'])){
 
 	$vetoringredientes = explode(',', $_POST['removeing']);
 	$idusuario=$_SESSION['idusuario'];
@@ -70,6 +68,15 @@ else if (isset($_POST['deletaing'])) {
 
 	$ingredienteop = new IngredienteOP();
 	$deleta = $ingredienteop->deletaIngrediente($idingrediente);
+
+
+}
+
+else if (isset($_POST['deletar'])) {
+	$idingrediente = $_POST['deletar'];
+
+	$ingredienteop = new IngredienteOP();
+	$deletar = $ingredienteop->deletar($idingrediente);
 
 
 }

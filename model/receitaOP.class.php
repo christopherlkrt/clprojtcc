@@ -15,7 +15,7 @@ class ReceitaOP extends BD{
   
     try {
       $stmt = $this->pdo->prepare(
-        'INSERT INTO receitas (nomereceita, descricao, imgreceita, idusuario) VALUES (?,?,?,?)');
+        'INSERT INTO receitas (nomereceita, descricao, imgreceita, idusuario, statusreceita) VALUES (?,?,?,?,0)');
 
       $stmt->bindValue(1, $receita->getNome());
       $stmt->bindValue(2, $receita->getDescricao());
@@ -108,10 +108,23 @@ catch (PDOException  $e) {
  } catch (PDOException  $e) {
   print $e->getMessage(); }
 }
-public function getAll() {
+
+public function getAllmesmo() {
 	try {
     $stmt = $this->pdo->query(
       "SELECT * FROM receitas" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function getAll() {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM receitas where statusreceita!=0" );
     $resultado=$stmt->fetchAll();
     return $resultado;
   }
@@ -208,7 +221,7 @@ public function getAllingredientes() {
 
 
 
-public function delete($id_user){
+public function deletar($idreceita){
   try{
     $stmt=$this->pdo->prepare('
       DELETE FROM receitas WHERE idreceita= ?');
@@ -224,6 +237,7 @@ public function delete($id_user){
   } catch (PDOException  $e) {
    print $e->getMessage(); }
  }
+ 
 }
 
 

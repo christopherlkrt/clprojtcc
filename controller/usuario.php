@@ -70,6 +70,14 @@ else if (isset($_POST['salvar']))
 
 	move_uploaded_file($tmpimg, "../imgs/usuarios/".$img);
 }
+else if (isset($_POST['deletar'])) {
+	$idusuario = $_POST['deletar'];
+
+	$usuarioop = new UsuarioOP();
+	$deletar = $usuarioop->deletar($idusuario);
+
+
+}
 
 
 ?>

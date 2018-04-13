@@ -28,7 +28,6 @@ else if(!isset($_SESSION['idusuario'])){
 $usuarioop = new UsuarioOP();
 $objusuarios = $usuarioop->getAll();
 $linhas = sizeof($objusuarios);
-print_r($linhas);
 
 ?>
 
@@ -109,8 +108,7 @@ print_r($linhas);
                   <th>ID</th>
                   <th>Usuário</th>
                   <th>E-mail</th>
-                  <th>Status</th>
-                  <th>Reason</th>
+                  <th>Operações</th>
                 </tr>
                 <?php
                 for ($i=0; $i < $linhas ; $i++) { 
@@ -119,12 +117,12 @@ print_r($linhas);
                   <td><?=$objusuarios[$i]['idusuario']?></td>
                   <td><?=$objusuarios[$i]['nomeusuario']?></td>
                   <td><?=$objusuarios[$i]['email']?></td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  <td name="<?=$objusuarios[$i]['idusuario']?>"><button class="btn btn-default"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarusu"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                 <?php
                 }
                 ?>
+                <td><button class="btn btn-default"><i class="icon-plus"></i>Adicionar</button></td>
               </table>
             </div>
             <!-- /.box-body -->
@@ -132,10 +130,25 @@ print_r($linhas);
           <!-- /.box -->
         </div>
       </div>
+            <script>
+        
+          $('.table').on("click","#deletarusu",function(e) {
+          e.preventDefault();
+         
+          var deletar = $(this).parent('td').attr('name');
+
+          $.post("../controller/usuario.php",
+        {
+            deletar: deletar
+        });
+
+         location.reload();
+         
+        });
+
+      </script>
 
      </div>   
-
-        </div>
     <?php
     include "../footer.php";
     ?>
@@ -143,3 +156,4 @@ print_r($linhas);
 
 </body>
 </html>
+
