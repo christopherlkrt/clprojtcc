@@ -127,7 +127,9 @@ ul {
 
 }
 
-.rate-size{
+.shadow{
+	font-size: 50px;
+	opacity:0.75;
 }
 
 /*ul.ingredientes:nth-child(even){

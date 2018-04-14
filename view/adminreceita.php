@@ -1,12 +1,10 @@
 <?php
-
 include "../model/receitaOP.class.php";
 $receitaop = new ReceitaOP();
 $objreceitas = $receitaop->getAllmesmo();
 $linhas = sizeof($objreceitas);
 
 ?>
-
      <div class="row caixabranca">
         <div class="col-xs-12">
           <div class="box">
@@ -78,14 +76,15 @@ $linhas = sizeof($objreceitas);
         e.preventDefault();
        
         var deletar = $(this).parent('td').attr('name');
-
+   
         $.post("../controller/receita.php",
       {
           deletar: deletar
+      }).done(function() {
+
+      $("#retorno").load("adminreceita.php")
       });
 
-       $("#retorno").load("adminreceita.php");
-       
-      });
 
-      </script>
+      });
+    </script>

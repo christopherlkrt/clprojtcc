@@ -1,11 +1,11 @@
 <?php
-
 include "../model/ingredienteOP.class.php";
 $ingredienteop = new IngredienteOP();
 $objing = $ingredienteop->getAll();
 $linhas = sizeof($objing);
 
 ?>
+
 
      <div class="row caixabranca">
         <div class="col-xs-12">
@@ -50,21 +50,20 @@ $linhas = sizeof($objing);
         </div>
       </div>
 
-
 <script>
-  
-      $('.table').on("click","#deletaring",function(e) {
+         $('.table').on("click","#deletaring",function(e) {
         e.preventDefault();
        
         var deletar = $(this).parent('td').attr('name');
-
+   
         $.post("../controller/ingrediente.php",
       {
           deletar: deletar
+      }).done(function() {
+
+      $("#retorno").load("admining.php")
       });
 
-       $("#retorno").load("admining.php");
-       
-      });
 
-</script>
+      });
+    </script>

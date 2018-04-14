@@ -93,7 +93,7 @@ else if(!isset($_SESSION['idusuario'])){
 
         <div class="container caixabranca col-md-offset-5" id="retorno">
            
-                <form action="../controller/usuario.php" method="post" class="col-md-offset-5" enctype="multipart/form-data">
+                <form action="../controller/usuario.php" method="post" class="col-md-offset-4" enctype="multipart/form-data">
 
 
                     <div class="input-group form-group margin-t5">
