@@ -9,12 +9,6 @@ if(isset($_SESSION['idusuario'])){
     $imgusuario = $_SESSION['imgusuario'];
     $usuarioop= new UsuarioOP();
     $linha= $usuarioop-> getEdit($idusuario);
-    if (!$_SESSION['imgusuario']){
-        $imgusuario = 'user-icon.png';
-    }
-    else if (isset($_SESSION['imgusuario'])) {
-        $imgusuario = $_SESSION['imgusuario'];
-    }
 
 }
 else if(isset($_POST['logout'])){

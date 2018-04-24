@@ -69,7 +69,7 @@ else if (isset($_POST['salvar']))
 	$usuarioop= new UsuarioOP();
 	$usuarioop-> update($usuario);
 
-	move_uploaded_file($tmpimg, "../imgs/receitas/".$img);
+	move_uploaded_file($tmpimg, "../imgs/usuarios/".$img);
 }
 else if (isset($_POST['salvaradmin']))
 {

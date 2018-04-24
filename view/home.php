@@ -9,12 +9,7 @@ if(isset($_GET['logout'])){
 else if(isset($_SESSION['idusuario'])){
     $idusuario = $_SESSION['idusuario'];
     $nusuario = $_SESSION['nusuario'];
-    if (!$_SESSION['imgusuario']){
-        $imgusuario = 'user-icon.png';
-    }
-    else if (isset($_SESSION['imgusuario'])) {
-        $imgusuario = $_SESSION['imgusuario'];
-    }
+    $imgusuario = $_SESSION['imgusuario'];
 }
 
 include "../model/receitaOP.class.php";
@@ -63,14 +58,14 @@ $linhas=sizeof($obj);
             </div>
 
 
-            <div class="item" style="background-image: url(../imgs/receitas/pexels-photo-295043.jpeg);">
+            <div class="item" style="background-image: url(../imgs/receitas/pexels-photo-2.jpeg);">
                 <div class="carousel-caption">
                     segundo
                 </div>
             </div>
 
 
-            <div class="item" style="background-image: url(../imgs/receitas/pexels-photo-376464.jpeg);">
+            <div class="item" style="background-image: url(../imgs/receitas/pexels-photo-1.jpeg);">
                 <div class="carousel-caption">
                     terceiro
                 </div>
