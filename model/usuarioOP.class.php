@@ -15,11 +15,12 @@ class UsuarioOP extends BD{
     	//print_r($categoria);
     try {
       $stmt = $this->pdo->prepare(
-        'INSERT INTO usuarios (nomeusuario, email, senha) VALUES (?,?,?)');
+        'INSERT INTO usuarios (nomeusuario, email, senha, img) VALUES (?,?,?,?)');
 
       $stmt->bindValue(1, $usuario->getNome());
       $stmt->bindValue(2, $usuario->getEmail());
       $stmt->bindValue(3, $usuario->getSenha());
+      $stmt->bindValue(4, $usuario->getImg());
 
       if ($stmt->execute())
       { 	
@@ -61,6 +62,25 @@ class UsuarioOP extends BD{
 
   }
 
+  public function updateadm(Usuario $usuario){
+   try{
+    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? 
+      WHERE idusuario= ? ');
+    $stmt->bindValue(1, $usuario->getNome());
+    $stmt->bindValue(2, $usuario->getSenha());
+    $stmt->bindValue(3, $usuario->getEmail());
+    $stmt->bindValue(4, $usuario->getId());
+    if ($stmt->execute())
+    {   
+     echo "Registro Alterado com sucesso";
+   }
+   else
+   {
+     echo "Erro ao alterar";
+   }
+ } catch (PDOException  $e) {
+  print $e->getMessage(); }
+}
 
   public function update(Usuario $usuario){
    try{

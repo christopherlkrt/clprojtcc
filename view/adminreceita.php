@@ -26,6 +26,7 @@ $linhas = sizeof($objreceitas);
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
+                  <th>Imagem</th>
                   <th>Nome</th>
                   <th>Usuário</th>
                   <th>Status</th>
@@ -36,6 +37,7 @@ $linhas = sizeof($objreceitas);
                 ?>
                 <tr>
                   <td><?=$objreceitas[$i]['idreceita']?></td>
+                  <td><img src="../imgs/receitas/<?=$objreceitas[$i]['imgreceita']?>" class="img-responsive img-rounded miniatura-img" alt="Imagem da Receita"></td>
                   <td><?=$objreceitas[$i]['nomereceita']?></td>
                   <?php if ($objreceitas[$i]['idusuario']==null) {
                     
@@ -57,12 +59,12 @@ $linhas = sizeof($objreceitas);
                   <td><span class="label label-success">Aprovada</span></td>
                   <?php
                   } ?>
-                  <td name="<?=$objreceitas[$i]['idreceita']?>"><button class="btn btn-default"><i class="icon-ok"></i>Aprovar</button><button class="btn btn-default"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarrec"><i class="icon-cancel"></i>Deletar</button></td>
+                  <td id="<?=$objreceitas[$i]['nomereceita']?>" name="<?=$objreceitas[$i]['idreceita']?>"><button class="btn btn-default"><i class="icon-ok"></i>Aprovar</button><button class="btn btn-default" id="editarrec"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarrec"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                  <?php
                 }
                 ?>
-                <td><button class="btn btn-default"><i class="icon-plus"></i>Adicionar</button></td>
+                <td><button class="btn btn-default" id="addreceita"><i class="icon-plus"></i>Adicionar</button></td>
               </table>
             </div>
             <!-- /.box-body -->
@@ -74,7 +76,11 @@ $linhas = sizeof($objreceitas);
       <script>
          $('.table').on("click","#deletarrec",function(e) {
         e.preventDefault();
-       
+        
+        var confirma=confirm('Tem certeza que deseja excluir a receita '+$(this).parent('td').attr('id')+'?');
+        if (confirma==true) {
+         
+        
         var deletar = $(this).parent('td').attr('name');
    
         $.post("../controller/receita.php",
@@ -84,7 +90,29 @@ $linhas = sizeof($objreceitas);
 
       $("#retorno").load("adminreceita.php")
       });
-
+      }
 
       });
+
+      $('.table').on("click","#editarrec",function(e) {
+      e.preventDefault();
+     
+      var editar = $(this).parent('td').attr('name');
+      $.post("edita_receita.php",
+    {
+        editar: editar
+
+    }).done(function(data) {
+
+    $("#retorno").html(data)
+    });
+
+    });
+
+      $('.table').on("click","#addreceita",function(e) {
+      e.preventDefault();
+     
+      $("#retorno").load("add_receita.php")
+
+    });
     </script>

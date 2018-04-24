@@ -7,15 +7,17 @@ if (isset($_POST['cadastro']))
 	$nome=$_POST['nome'];
 	$email=$_POST['email'];
 	$senha=$_POST['senha'];
+	$img='user-icon.png';
 
 	$usuario = new Usuario();
 	$usuario-> setNome($nome);
 	$usuario-> setEmail($email);
 	$usuario-> setSenha($senha);
+	$usuario-> setImg($img);
+
 
 	$usuarioop= new UsuarioOP();
 	$usuarioop-> inserir($usuario);
-	$resultado= $usuarioop-> getAll();
 	
 }
 else if (isset($_POST['entrar']))
@@ -66,9 +68,24 @@ else if (isset($_POST['salvar']))
 
 	$usuarioop= new UsuarioOP();
 	$usuarioop-> update($usuario);
-	$resultado= $usuarioop-> getAll();
 
-	move_uploaded_file($tmpimg, "../imgs/usuarios/".$img);
+	move_uploaded_file($tmpimg, "../imgs/receitas/".$img);
+}
+else if (isset($_POST['salvaradmin']))
+{
+	$idusuario = $_POST['salvaradmin'];
+	$nome=$_POST['nome'];
+	$email=$_POST['email'];
+	$senha=$_POST['senha'];
+
+	$usuario = new Usuario();
+	$usuario-> setId($idusuario);
+	$usuario-> setNome($nome);
+	$usuario-> setEmail($email);
+	$usuario-> setSenha($senha);
+
+	$usuarioop= new UsuarioOP();
+	$usuarioop-> updateadm($usuario);
 }
 else if (isset($_POST['deletar'])) {
 	$idusuario = $_POST['deletar'];

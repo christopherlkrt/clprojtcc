@@ -24,6 +24,29 @@ class IngredienteOP extends BD{
 //   }
 // }
 
+public function insereIngrediente($ingrediente) {
+    try {
+      $stmt = $this->pdo->prepare(
+        'INSERT INTO ingredientes (nomeingrediente) VALUES (?)');
+
+      $stmt->bindValue(1, $ingrediente->getNome());
+
+      if ($stmt->execute())
+      {   
+
+          echo "feito";
+
+      }
+      else
+      {
+       echo "Erro ao inserir";
+     }
+
+   } catch (PDOException  $e) {
+    print $e->getMessage(); }
+
+  }
+
 
 public function listAll(){
   try {
@@ -46,6 +69,36 @@ public function getAll() {
   catch (PDOException  $e) {
     print $e->getMessage();
   }
+}
+
+public function getEdit($idingrediente) {
+  try {
+    $resultado = $this->pdo->query(
+      "SELECT nomeingrediente FROM ingredientes where idingrediente='$idingrediente'" );
+    $linha=$resultado->fetch();
+    return $linha;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+ public function update(Ingrediente $ingrediente){
+   try{
+    $stmt=$this->pdo->prepare('UPDATE ingredientes set nomeingrediente = ? 
+      WHERE idingrediente= ? ');
+    $stmt->bindValue(1, $ingrediente->getNome());
+    $stmt->bindValue(2, $ingrediente->getId());
+    if ($stmt->execute())
+    {   
+     echo "Registro Alterado com sucesso";
+   }
+   else
+   {
+     echo "Erro ao alterar";
+   }
+ } catch (PDOException  $e) {
+  print $e->getMessage(); }
 }
 
 public function buscaIngredientes($ing) {

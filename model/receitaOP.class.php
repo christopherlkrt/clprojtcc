@@ -40,6 +40,34 @@ class ReceitaOP extends BD{
 
   }
 
+    public function inserirAdm(Receita $receita) {
+  
+    try {
+      $stmt = $this->pdo->prepare(
+        'INSERT INTO receitas (nomereceita, descricao, imgreceita, idusuario, statusreceita) VALUES (?,?,?,?,1)');
+
+      $stmt->bindValue(1, $receita->getNome());
+      $stmt->bindValue(2, $receita->getDescricao());
+      $stmt->bindValue(3, $receita->getImg());
+      $stmt->bindValue(4, $receita->getUsuario());
+
+      if ($stmt->execute())
+      {   
+
+          echo "Receita Inserida";
+
+      }
+      else
+      {
+       echo "Erro ao inserir";
+     }
+
+   } catch (PDOException  $e) {
+    print $e->getMessage(); }
+
+  }
+
+
   //receita_ing
     public function inserirReceitaIng(ReceitaIng $receita_ingrediente) {
       //print_r($categoria);
@@ -87,16 +115,27 @@ catch (PDOException  $e) {
 }
 }
 
+public function getEdit($idreceita) {
+  try {
+    $resultado = $this->pdo->query(
+      "SELECT * FROM receitas where idreceita='$idreceita'" );
+    $linha=$resultado->fetch();
+    return $linha;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
 
 
-  public function updado(Receita $receita){
+  public function update(Receita $receita){
    try{
-    $stmt=$this->pdo->prepare('UPDATE receitas set nomereceita = ? , descricao= ? 
+    $stmt=$this->pdo->prepare('UPDATE receitas set nomereceita = ? , descricao= ? , imgreceita= ? 
       WHERE idreceita= ? ');
-    $stmt->bindValue(1, $categoria->getNome());
-    $stmt->bindValue(2, $categoria->getEmail());
-    $stmt->bindValue(3, $categoria->getSenha());
-    $stmt->bindValue(4, $categoria->getUid());
+    $stmt->bindValue(1, $receita->getNome());
+    $stmt->bindValue(2, $receita->getDescricao());
+    $stmt->bindValue(3, $receita->getImg());
+    $stmt->bindValue(4, $receita->getId());
     if ($stmt->execute())
     { 	
      echo "Registro Alterado com sucesso";
@@ -108,6 +147,7 @@ catch (PDOException  $e) {
  } catch (PDOException  $e) {
   print $e->getMessage(); }
 }
+
 
 public function getAllmesmo() {
 	try {

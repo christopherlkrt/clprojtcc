@@ -113,8 +113,18 @@ ul {
 
 .profile-user-pic{
 	
-	width: 15%;
-	height: 15%;
+	width: 25%;
+	height: 25%;
+}
+.admin-edit-pic{
+	
+	width: 35%;
+	height: 40%;
+}
+
+.miniatura-img{
+	width: 4vw;
+	height: 5vh;
 }
 
 .menu-user-pic{
@@ -131,7 +141,6 @@ ul {
 	font-size: 50px;
 	opacity:0.75;
 }
-
 /*ul.ingredientes:nth-child(even){
 	background-color: grey;
 }

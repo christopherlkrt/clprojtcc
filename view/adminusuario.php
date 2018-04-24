@@ -41,12 +41,12 @@ $linhas = sizeof($objusuarios);
                   <td><?=$objusuarios[$i]['idusuario']?></td>
                   <td><?=$objusuarios[$i]['nomeusuario']?></td>
                   <td><?=$objusuarios[$i]['email']?></td>
-                  <td name="<?=$objusuarios[$i]['idusuario']?>"><button class="btn btn-default"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarusu"><i class="icon-cancel"></i>Deletar</button></td>
+                  <td id="<?=$objusuarios[$i]['nomeusuario']?>" name="<?=$objusuarios[$i]['idusuario']?>"><button class="btn btn-default" id="editarusu"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarusu"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                 <?php
                 }
                 ?>
-                <td><button class="btn btn-default"><i class="icon-plus"></i>Adicionar</button></td>
+                <td><button class="btn btn-default" id="addusuario"><i class="icon-plus"></i>Adicionar</button></td>
               </table>
             </div>
             <!-- /.box-body -->
@@ -56,9 +56,12 @@ $linhas = sizeof($objusuarios);
       </div>
             
 <script>
-         $('.table').on("click","#deletarusu",function(e) {
+      $('.table').on("click","#deletarusu",function(e) {
         e.preventDefault();
-       
+   
+        var confirma=confirm('Tem certeza que deseja excluir o usuário '+$(this).parent('td').attr('id')+'?');
+        if (confirma==true) {
+
         var deletar = $(this).parent('td').attr('name');
    
         $.post("../controller/usuario.php",
@@ -68,7 +71,30 @@ $linhas = sizeof($objusuarios);
 
       $("#retorno").load("adminusuario.php")
       });
-
+      }
 
       });
+
+
+      $('.table').on("click","#editarusu",function(e) {
+        e.preventDefault();
+       
+        var editar = $(this).parent('td').attr('name');
+        $.post("edita_usuario.php",
+      {
+          editar: editar
+
+      }).done(function(data) {
+
+      $("#retorno").html(data)
+      });
+
+      });
+
+      $('.table').on("click","#addusuario",function(e) {
+      e.preventDefault();
+     
+      $("#retorno").load("add_usuario.php")
+
+    });
 </script>

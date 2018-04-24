@@ -14,10 +14,10 @@ if(isset($_SESSION['idusuario'])){
 }
 else if(isset($_POST['logout'])){
     session_destroy();
-    header("location: ../view/home.php");
+    header("location: ../../view/home.php");
 }
 else if(!isset($_SESSION['idusuario'])){
-    header("location: ../view/home.php");
+    header("location: ../../view/home.php");
 }
 
 ?>

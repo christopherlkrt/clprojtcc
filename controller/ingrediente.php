@@ -80,6 +80,28 @@ else if (isset($_POST['deletar'])) {
 
 
 }
+else if (isset($_POST['salvaradmin']))
+{
+	$idingrediente = $_POST['salvaradmin'];
+	$nome=$_POST['nome'];
+
+	$ingrediente = new Ingrediente();
+	$ingrediente-> setId($idingrediente);
+	$ingrediente-> setNome($nome);
+
+	$ingredienteop= new IngredienteOP();
+	$ingredienteop-> update($ingrediente);
+}
+else if (isset($_POST['ingadd'])) {
+	print_r($_POST['nome']);
+	$nome = $_POST['nome'];
+	$ingrediente = new Ingrediente();
+	$ingrediente-> setNome($nome);
+
+	$ingredienteop= new IngredienteOP();
+	$ingredienteop-> insereIngrediente($ingrediente);
+
+}
 
 // include "../model/ingrediente.class.php";
 // include "../model/ingredienteOP.class.php";

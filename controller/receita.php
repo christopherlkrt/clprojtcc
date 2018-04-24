@@ -76,6 +76,43 @@ else if (isset($_POST['entrar']))
 	}
 
 }
+else if (isset($_POST['idreceita']))
+{
+	
+	 $idreceita = $_POST['idreceita'];
+	 $nome=$_POST['nome'];
+	 $descricao=$_POST['descricao'];
+	 $img=$_FILES['imgreceita']['name'];
+	 $tmpimg=$_FILES['imgreceita']['tmp_name'];
+
+	$receita = new Receita();
+	$receita-> setId($idreceita);
+	$receita-> setNome($nome);
+	$receita-> setDescricao($descricao);
+	$receita-> setImg($img);
+
+	$receitaop= new ReceitaOP();
+	$receitaop-> update($receita);
+
+	move_uploaded_file($tmpimg, "../imgs/receitas/".$img);
+}
+else if (isset($_POST['addreceita']))
+{
+	 $nome=$_POST['nome'];
+	 $descricao=$_POST['descricao'];
+	 $img=$_FILES['imgreceita']['name'];
+	 $tmpimg=$_FILES['imgreceita']['tmp_name'];
+
+	$receita = new Receita();
+	$receita-> setNome($nome);
+	$receita-> setDescricao($descricao);
+	$receita-> setImg($img);
+
+	$receitaop= new ReceitaOP();
+	$receitaop-> inserirAdm($receita);
+
+	move_uploaded_file($tmpimg, "../imgs/receitas/".$img);
+}
 else if (isset($_POST['deletar'])) {
 	$idreceita = $_POST['deletar'];
 	
