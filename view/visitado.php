@@ -38,8 +38,11 @@ if(isset($_SESSION['idusuario'])){
         $(document).ready(function() {
 
             $("#favoritas").click(function(){
-                alert(location.search);
-                $("#retorno").load("visitado_favoritas.php");
+                $("#retorno").load("visitado_favoritas.php"+location.search);
+            });
+
+             $("#enviadas").click(function(){
+                $("#retorno").load("visitado_enviadas.php"+location.search);
             });
 
          
@@ -48,7 +51,7 @@ if(isset($_SESSION['idusuario'])){
 
     </script>
 </head>
-<body class="cinzou">
+<body>
 	<?php
 
     include "../header.php";
@@ -58,25 +61,19 @@ if(isset($_SESSION['idusuario'])){
     <section>
         <div class="container-fluid margin-tmais">
         <div class="row">
-            <aside  class="col-md-2 col-md-offset-2">
+            <aside  class="col-md-2 col-md-offset-1">
                 <div>
                     <img src="../imgs/usuarios/<?=$obj_visitado['img']?>" class="img-responsive img-circle visited-user-pic" alt="Imagem do Usuario">
                     <h3 class="meio"><?=$obj_visitado['nomeusuario']?></h3>
+                    <input type="button" class="btn btn-default" value="Receitas Favoritas" id="favoritas" name="favoritas" />
+                    <input type="button" class="btn btn-default" value="Receitas Enviadas" id="enviadas" name="enviadas" />
                 </div>
             </aside>
             
-         
-            <div class="btn-group col-md-offset-2 col-md-2" role="group">
-                <input type="button" class="btn btn-default" value="Receitas Favoritas" id="favoritas" name="favoritas" />
-                <input type="button" class="btn btn-default" value="Receitas Enviadas" id="enviadas" name="enviadas" />
-
-            <div class="margin-t5" id="retorno">
-              <h1 class=" meio shadow">Perfil de <?=$obj_visitado['nomeusuario']?></h1>
-              
-            </div> 
-
-            </div>
       
+         <div class="col-md-offset-1 col-md-6" id="retorno">
+              <h1 class=" meio shadow">Perfil de <?=$obj_visitado['nomeusuario']?></h1>
+            </div> 
         </div>
 
             

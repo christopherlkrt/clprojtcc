@@ -165,6 +165,10 @@ ul {
 	opacity:0.75;
 }
 
+.mini-texto{
+	font-size: 14px;
+}
+
 /*ul.ingredientes:nth-child(even){
 	background-color: grey;
 }

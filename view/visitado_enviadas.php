@@ -3,7 +3,7 @@
 include "../model/ReceitaOP.class.php";
 $receitaop= new ReceitaOP();
 $idvisitado=$_GET['visitado'];
-$receitas_visitado=$receitaop-> getVisitadoFavoritas($idvisitado);
+$receitas_visitado=$receitaop-> getVisitadoEnviadas($idvisitado);
 $obj_visitado=$receitaop-> getReceitaDono($idvisitado);
 $linhas=sizeof($receitas_visitado);
 
@@ -17,7 +17,7 @@ $linhas=sizeof($receitas_visitado);
 <body>
 
  <!-- conteudo-receitas-->
- <h4>Receitas Favoritas de <?=$obj_visitado['nomeusuario']?></h4>
+ <h4>Receitas Enviadas por <?=$obj_visitado['nomeusuario']?></h4>
 
  <?php
                   for($i=0;$i<$linhas;$i++)
@@ -28,7 +28,7 @@ $linhas=sizeof($receitas_visitado);
           <figure>
            <img src="../imgs/receitas/<?=$receitas_visitado[$i]['imgreceita']?>" class="img-responsive" alt="<?=$receitas_visitado[$i]['nomereceita']?>">
        </figure>
-       <h3 class="thumbnail-title"><?=$receitas_visitado[$i]['nomereceita']?><p class="mini-texto">Nota dele: <?=$receitas_visitado[$i]['notausuario']?></p></h3>
+       <h3 class="thumbnail-title"><?=$receitas_visitado[$i]['nomereceita']?></h3>
 
    </a>
 </div>

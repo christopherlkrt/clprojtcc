@@ -110,8 +110,20 @@ class ReceitaOP extends BD{
 public function getVisitadoFavoritas($idusuario) {
   try {
     $stmt = $this->pdo->query(
-      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita FROM receitas, nota_usuario where nota_usuario.idusuario='$idusuario' and receitas.idreceita=nota_usuario.idreceita " );
-    $resultado=$stmt->fetch();
+      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita, nota_usuario.notausuario FROM receitas, nota_usuario where nota_usuario.idusuario='$idusuario' and receitas.idreceita=nota_usuario.idreceita " );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function getVisitadoEnviadas($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM receitas where idusuario='$idusuario' and statusreceita=1" );
+    $resultado=$stmt->fetchAll();
     return $resultado;
   }
   catch (PDOException  $e) {
