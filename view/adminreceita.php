@@ -59,7 +59,7 @@ $linhas = sizeof($objreceitas);
                   <td><span class="label label-success">Aprovada</span></td>
                   <?php
                   } ?>
-                  <td id="<?=$objreceitas[$i]['nomereceita']?>" name="<?=$objreceitas[$i]['idreceita']?>"><button class="btn btn-default"><i class="icon-ok"></i>Aprovar</button><button class="btn btn-default" id="editarrec"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarrec"><i class="icon-cancel"></i>Deletar</button></td>
+                  <td id="<?=$objreceitas[$i]['nomereceita']?>" name="<?=$objreceitas[$i]['idreceita']?>"><button class="btn btn-default" id="aprovar"><i class="icon-ok"></i>Aprovar</button><button class="btn btn-default" id="editarrec"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarrec"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                  <?php
                 }
@@ -74,6 +74,22 @@ $linhas = sizeof($objreceitas);
       </div>
 
       <script>
+          $('.table').on("click","#aprovar",function(e) {
+        e.preventDefault();  
+        
+        var aprovar = $(this).parent('td').attr('name');
+   
+        $.post("../controller/receita.php",
+      {
+          aprovar: aprovar
+      }).done(function() {
+
+      $("#retorno").load("adminreceita.php")
+      });
+      
+
+      });
+
          $('.table').on("click","#deletarrec",function(e) {
         e.preventDefault();
         

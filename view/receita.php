@@ -4,22 +4,23 @@ session_start();
 $id=$_GET['idreceita'];
 
 include "../model/receitaOP.class.php";
+
 $receitaop= new ReceitaOP();
 $obj_receita=$receitaop-> getReceita($id);
 $obj_ingrediente=$receitaop-> getIngrediente($id);
 $linha=sizeof($obj_ingrediente);
 $nota_receita=$receitaop-> getNotaReceita($id);
 
+if ($obj_receita['idusuario']!=null) {
+$obj_usuariodono=$receitaop-> getReceitaDono($obj_receita['idusuario']);
+}
+
 if(isset($_SESSION['idusuario'])){
 
     $idusuario = $_SESSION['idusuario'];
     $nusuario = $_SESSION['nusuario'];
-    if (!$_SESSION['imgusuario']){
-        $imgusuario = 'user-icon.png';
-    }
-    else if (isset($_SESSION['imgusuario'])) {
-        $imgusuario = $_SESSION['imgusuario'];
-    }
+    $imgusuario = $_SESSION['imgusuario'];
+   
 
     include "../model/usuarioOP.class.php";
     $notaop= new UsuarioOP();
@@ -110,8 +111,15 @@ if(isset($_SESSION['idusuario'])){
 
             <div class="col-md-8 min-alt">
 
-            <h2><?=$obj_receita['nomereceita']?></h2><input type="hidden" id="idreceita" value="<?=$obj_receita['idreceita']?>">   
+            <h2><?=$obj_receita['nomereceita']?></h2><input type="hidden" id="idreceita" value="<?=$obj_receita['idreceita']?>"> 
+             <?php if ($obj_receita['idusuario']!=null) {
+            
+            ?>
+            <h5>Receita por: <a href="visitado.php?visitado=<?=$obj_receita['idusuario']?>" class="no-style"><?=$obj_usuariodono['nomeusuario']?></a></h5>
+            <?php
+            } ?>  
             <p><?=$obj_receita['descricao']?><p>
+           
 
             </div>
              
@@ -120,11 +128,12 @@ if(isset($_SESSION['idusuario'])){
 </section>
 
 
+     <div class="absoluto">
 
-<?php
-
+    <?php
     include "../footer.php";
     ?>
+    </div>
 
   <!--modals-->
 

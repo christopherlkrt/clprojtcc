@@ -95,6 +95,30 @@ class ReceitaOP extends BD{
 
   }
 
+  public function getReceitaDono($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT nomeusuario, img FROM usuarios where idusuario='$idusuario' " );
+    $resultado=$stmt->fetch();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function getVisitadoFavoritas($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT receitas.idreceita, receitas.nomereceita, receitas.imgreceita FROM receitas, nota_usuario where nota_usuario.idusuario='$idusuario' and receitas.idreceita=nota_usuario.idreceita " );
+    $resultado=$stmt->fetch();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
   public function getIdporNome($ing) {
   try {
    $stmt=$this->pdo->prepare("SELECT idingrediente FROM ingredientes where nomeingrediente='$ing'");
@@ -259,6 +283,21 @@ public function getAllingredientes() {
   }
 }
 
+  public function aprovaReceita($idreceita){
+   try{
+    $stmt=$this->pdo->query("UPDATE receitas set statusreceita=1
+      WHERE idreceita= '$idreceita' ");
+    if ($stmt->execute())
+    {   
+     echo "Receita Aprovada";
+   }
+   else
+   {
+     echo "Erro ao alterar";
+   }
+ } catch (PDOException  $e) {
+  print $e->getMessage(); }
+}
 
 
 public function deletar($idreceita){

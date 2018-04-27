@@ -75,8 +75,8 @@ else if(!isset($_SESSION['idusuario'])){
 
     <div class="container-fluid margin-tmais">
         <aside>
-            <div class="row">
-            <div class="btn-group col-md-offset-5" role="group">
+            <div class="row meio margin-t5">
+            <div class="btn-group" role="group">
                 <input type="button" class="btn btn-default" value="Meus dados" id="dados" />
                 <input type="button" class="btn btn-default" value="Receitas Favoritas" id="receitas" />
                 <input type="button" class="btn btn-default" value="Meus Ingredientes" id="ingredientes" />
@@ -117,9 +117,11 @@ else if(!isset($_SESSION['idusuario'])){
                
 
         </div>
+       <div class="absoluto">
     <?php
     include "../footer.php";
     ?>
+    </div>
 
 
 </body>

@@ -84,6 +84,7 @@ class UsuarioOP extends BD{
 
   public function update(Usuario $usuario){
    try{
+    if ($usuario->getImg()!=null) {
     $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? , img = ? 
       WHERE idusuario= ? ');
     $stmt->bindValue(1, $usuario->getNome());
@@ -91,9 +92,20 @@ class UsuarioOP extends BD{
     $stmt->bindValue(3, $usuario->getEmail());
     $stmt->bindValue(4, $usuario->getImg());
     $stmt->bindValue(5, $usuario->getId());
+    $_SESSION['imgusuario']=$usuario->getImg();
+    }
+    else
+    {
+    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? 
+      WHERE idusuario= ? ');
+    $stmt->bindValue(1, $usuario->getNome());
+    $stmt->bindValue(2, $usuario->getSenha());
+    $stmt->bindValue(3, $usuario->getEmail());
+    $stmt->bindValue(4, $usuario->getId());
+    }
     if ($stmt->execute())
     { 	
-     echo "Registro Alterado com sucesso";
+     header('Location: ../view/conta_dados.php');
    }
    else
    {
@@ -106,6 +118,18 @@ public function getAll() {
   try {
     $stmt = $this->pdo->query(
       "SELECT * FROM usuarios" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function getUsuarioDono($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM usuarios where idusuario='$idusuario' " );
     $resultado=$stmt->fetchAll();
     return $resultado;
   }

@@ -113,6 +113,14 @@ else if (isset($_POST['addreceita']))
 
 	move_uploaded_file($tmpimg, "../imgs/receitas/".$img);
 }
+else if (isset($_POST['aprovar'])) {
+	$idreceita = $_POST['aprovar'];
+	
+	$receitaop = new ReceitaOP();
+	$aprovar = $receitaop->aprovaReceita($idreceita);
+
+
+}
 else if (isset($_POST['deletar'])) {
 	$idreceita = $_POST['deletar'];
 	

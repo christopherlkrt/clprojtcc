@@ -73,11 +73,15 @@ else if(!isset($_SESSION['idusuario'])){
     <div id="retorno">
       <h1 class="meio shadow">Painel de Controle</h1>
      </div>   
+
+     <div class="absoluto">
+
     <?php
     include "../footer.php";
     ?>
-
-
+    </div>
+    </div>
+    
 </body>
 </html>
 

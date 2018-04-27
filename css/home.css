@@ -88,6 +88,10 @@ header .navbar { margin-bottom: 0; }
 	align-items:center;
 }
 
+.row.meio {
+   margin-right: 0 !important;
+}
+
 .carousel-inner>.item {
 	height: 60vh;
 	background-position: center;
@@ -104,11 +108,25 @@ ul {
   list-style-type: none;
 }
 
+.no-style{
+	text-decoration: none;
+	color: black;
+}
+.no-style:hover{
+	text-decoration: none;
+	color: #FF5722;
+}
+
 .footer{
 	left: 0;
 	bottom: 0;
-	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
 
+.absoluto{
+	bottom: 0;
+	position: absolute;
 }
 
 .profile-user-pic{
@@ -120,6 +138,11 @@ ul {
 	
 	width: 35%;
 	height: 40%;
+}
+
+.visited-user-pic{
+
+	
 }
 
 .miniatura-img{
@@ -141,6 +164,7 @@ ul {
 	font-size: 50px;
 	opacity:0.75;
 }
+
 /*ul.ingredientes:nth-child(even){
 	background-color: grey;
 }
