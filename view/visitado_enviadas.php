@@ -1,6 +1,6 @@
 <?php
 
-include "../model/ReceitaOP.class.php";
+include "../model/receitaOP.class.php";
 $receitaop= new ReceitaOP();
 $idvisitado=$_GET['visitado'];
 $receitas_visitado=$receitaop-> getVisitadoEnviadas($idvisitado);

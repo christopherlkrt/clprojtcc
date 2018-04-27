@@ -131,6 +131,18 @@ public function getVisitadoEnviadas($idusuario) {
   }
 }
 
+public function getUsuarioEnviadas($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM receitas where idusuario='$idusuario'" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
   public function getIdporNome($ing) {
   try {
    $stmt=$this->pdo->prepare("SELECT idingrediente FROM ingredientes where nomeingrediente='$ing'");

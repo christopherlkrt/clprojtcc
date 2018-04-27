@@ -59,6 +59,10 @@ else if(!isset($_SESSION['idusuario'])){
                 $("#retorno").load("cadreceita.php");
             });
 
+            $("#enviadas").click(function(){
+                $("#retorno").load("conta_enviadas.php");
+            });
+
 
 
 
@@ -81,6 +85,7 @@ else if(!isset($_SESSION['idusuario'])){
                 <input type="button" class="btn btn-default" value="Receitas Favoritas" id="receitas" />
                 <input type="button" class="btn btn-default" value="Meus Ingredientes" id="ingredientes" />
                 <input type="button" class="btn btn-default" value="Enviar Receita" id="enviareceita">
+                <input type="button" class="btn btn-default" value="Receitas Enviadas" id="enviadas">
             </div>
             </div>
         </aside>
