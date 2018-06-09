@@ -17,40 +17,38 @@ $linhas2=sizeof($obj2);
 </head>
 <body>
 
-
-  <div class="row margin-t5 form-inline">
-    <div class="col-md-4 col-md-offset-2">
+<div class="row">
+  <div class="col-md-6 margin-t5 form-inline">
+  
       <input type="text" class="form-control tags-auto" id="tags-input" name="adding" id="adding">
-      <input type="submit" class="btn btn-default" name="add" id="add" value="+">
-    </div>
-
-     <div class="col-md-4 col-md-offset-2 form-group">
-      <input type="text" class="form-control tags-auto" id="tags-input" name="removeing">
-      <input type="submit" class="btn btn-default" name="remove" id="remove" value="+">
-    </div>
-  </div>
+      <input type="submit" class="btn btn-default" style="height: 42px;" name="add" id="add" value="+">
     
-   <!-- conteudo-receitas-->
-   <div class="row">
-              <div class="col-md-6 lista-ingredientes">
-           
+    
+  <div class="lista-ingredientes">
             
                 <ul><h3 class="text-center">Meus Ingredientes</h3>
                <?php
                 for($i=0;$i<$linhas;$i++)
                 {
                  ?>
-                        
-                      
-                                 <h3 class="thumbnail-title"><li name="<?=$obj[$i]['idingrediente']?>"><?=$obj[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
-        
-        <?php 
-            }
-        ?>
+                   <h3 class="thumbnail-title"><li name="<?=$obj[$i]['idingrediente']?>"><?=$obj[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
+               <?php 
+                  }
+              ?>
         </ul>
         </div>
+      </div>
 
-        <div class="col-md-6 lista-ingredientes">
+
+
+      <div class="col-md-6 margin-t5 form-inline">
+      
+      <input type="text" class="form-control tags-auto" id="tags-input" name="removeing">
+      <input type="submit" class="btn btn-default" style="height: 42px;" name="remove" id="remove" value="+">
+    
+  
+
+  <div class="lista-ingredientes">
           
           <ul><h3 class="text-center">Ingredientes Restringidos</h3>
 
@@ -58,18 +56,18 @@ $linhas2=sizeof($obj2);
                 for($i=0;$i<$linhas2;$i++)
                 {
                  ?>
-                        
+                 <h3 class="thumbnail-title"><li name="<?=$obj2[$i]['idingrediente']?>"><?=$obj2[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
         
-                                 <h3 class="thumbnail-title"><li name="<?=$obj2[$i]['idingrediente']?>"><?=$obj2[$i]['nomeingrediente']?><i class="icon-cancel"></i></li></h3>
-        
-        <?php 
-            }
-        ?>
-
-
+                <?php 
+                    }
+                ?>
           </ul>
         </div>
-        </div>
+      </div>
+
+      </div>
+
+      <button type="button" class="btn btn-default btn-block margin-b margin-t5" name="geraReceitas" id="geraReceitas">Gerar Receitas</button>
         
 
 </body>
@@ -127,9 +125,13 @@ $linhas2=sizeof($obj2);
                 $.post("../controller/ingrediente.php",
               {
                   adding: adding
+              }).done(function (data){
+                var mensagem = "<strong>Ingrediente(s) adicionado(s).</strong>";
+                mostraDialogo(mensagem, "success", 2500);
+                $("#retorno").load("conta_ingredientes.php");
               });
 
-               $("#retorno").load("conta_ingredientes.php");
+               
                
         });
 
@@ -141,9 +143,26 @@ $linhas2=sizeof($obj2);
         $.post("../controller/ingrediente.php",
       {
           removeing: removeing
+      }).done(function (data){
+          var mensagem = "<strong>Ingrediente(s) adicionado(s).</strong>";
+          mostraDialogo(mensagem, "success", 2500);
+          $("#retorno").load("conta_ingredientes.php");
+        });
+       
       });
 
-       $("#retorno").load("conta_ingredientes.php");
+       $('#geraReceitas').on("click",function(e) {
+        e.preventDefault();
+       
+        var geraReceitas = $(this).attr('name');
+
+        $.post("gera_receitas.php",
+      {
+          geraReceitas: geraReceitas
+      }).done(function(data) {
+
+    $("#retorno").html(data)
+      });
        
       });
 

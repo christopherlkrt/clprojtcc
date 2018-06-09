@@ -4,7 +4,6 @@ if(isset($_GET['logout'])){
     session_destroy();
     unset($_SESSION['idusuario']);
     unset($_SESSION['nusuario']);
-    echo "entrou";
 }
 else if(isset($_SESSION['idusuario'])){
     $idusuario = $_SESSION['idusuario'];
@@ -30,9 +29,10 @@ $linhas=sizeof($obj);
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/home.css">
-    <link rel="stylesheet" type="text/css" href="../fafontello/css/fontello.css">
+  <link rel="stylesheet" type="text/css" href="../fafontello/css/fontello.css">
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
+  
 
 </head>
 <body>
@@ -92,15 +92,43 @@ $linhas=sizeof($obj);
 
                 <?php
                 for($i=0;$i<$linhas;$i++)
-                {
+                { $nota_receita=$receitaop-> getNotaReceita($obj[$i]['idreceita']);
                  ?>
                         <div class="col-sm-3 margin-t5">
                            <a href="receita.php?idreceita=<?=$obj[$i]['idreceita']?>">
                               <figure>
                                  <img src="../imgs/receitas/<?=$obj[$i]['imgreceita']?>" class="img-responsive" alt="<?=$obj[$i]['nomereceita']?>">
                              </figure>
-                                 <h3 class="thumbnail-title"><?=$obj[$i]['nomereceita']?></h3>
+                             <div class="thumbnail"> <h3 class="thumbnail-title"><?=$obj[$i]['nomereceita']?></h3>
                             </a>
+                            <div class="meio">
+                            <?php
+                                          $l = $nota_receita['media'];
+
+                    /*                      for($j = 0;  $j<$l; $j++)
+                                            echo "<i class ='icon-star star-paprica'></i> ";
+
+                                          if($receitas_visitado[$i]['notausuario'] - $l != 0) {
+                                            $j++;
+                                             echo "<i class ='icon-star-half-alt star-paprica'></i>";
+                                           }
+                                          while($j <5) {
+                                            $j++;
+                                            echo "<i class ='icon-star-empty star-paprica'></i>";
+                                          }
+                    */
+                                          for($j = 0;  $j<5; $j++) {
+                                            if($l - $j >= 1)
+                                              echo "<i class ='icon-star star-paprica star-maior'></i> ";
+                                            else if ($l - $j >0)
+                                              echo "<i class ='icon-star-half-alt star-paprica star-maior'></i>";
+                                            else
+                                               echo "<i class ='icon-star-empty star-paprica star-maior'></i>";
+                                          }
+
+                                  ?>
+                            </div>
+                        </div>
                         </div>
             
         
@@ -114,93 +142,9 @@ $linhas=sizeof($obj);
 </section>
 
 
-<!-- <footer>
-<div class="footer preto col-sm-12 margin-t5">
-	<div class="col-sm-6"><h2>Paprica</h2>
-    <p>Paprica é uma fonte de receitas culinárias com o objetivo de suprir necessidades dos usuários que gostariam de filtrar o que procuram, utilizando seus ingredientes para fazer uma busca mais específica ou excluindo alguns ingredientes para quem necessitar ou apenas preferir.</p>
-    </div>
-	
-	<div class="col-sm-6 borda">
-       <a href=""><i class="icon-facebook icones-redes"></i></a>
-       <a href=""><i class="icon-instagram icones-redes"></i></a>
-       <a href=""><i class="icon-twitter icones-redes"></i></a>
-    </div>
-
-
-</div>
-	
-</footer> -->
-
 <?php
 include "../footer.php";
 
 ?>
-
-
-<div class="modal fade" id="modalCadastro">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span ara-hidden="true">&times;</span></button>
-                 <h3>Faça seu cadastro!</h3>
-             </div>
-             <div class="modal-body meio">
-                     <form action="../controller/usuario.php" method="post" class="">
-                    <div class="input-group form-group">
-                        <span>Nome</span>
-                        <input type="text" class="form-control" name="nome" placeholder="Ex. Cleber" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                        <span>Email</span>
-                        <input type="email" class="form-control" name="email" placeholder="exemplo@email.com" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                        <span>Senha</span>
-                        <input type="password" class="form-control" name="senha" placeholder="******" required>
-                    </div>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                 <input type="submit" class="btn btn-default" name="cadastro" value="Cadastrar">
-                 </form>
-             </div>
-
-         </div><!--modal-content-->
-     </div><!--modal-dialog-->
- </div><!--modal-->
-
-
-<div class="modal fade" id="modalEntrar">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span ara-hidden="true">&times;</span></button>
-                 <h3>Acesse sua conta.</h3>
-             </div>
-             <div class="modal-body meio">
-                     <form action="../controller/usuario.php" method="post" class="">
-                        <div class="input-group form-group">
-                            <span>Email</span>
-                            <input type="email" class="form-control" name="email" placeholder="exemplo@email.com" required>
-                        </div>
-
-                        <div class="input-group form-group">
-                            <span>Senha</span>
-                            <input type="password" class="form-control" name="senha" placeholder="******" required>
-                        </div>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                 <input type="submit" class="btn btn-default" name="entrar" value="Entrar">
-                 </form>
-             </div>
-
-         </div><!--modal-content-->
-     </div><!--modal-dialog-->
- </div><!--modal-->
-
-
 </body>
 </html>

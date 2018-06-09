@@ -6,6 +6,7 @@ class Usuario{
 	private $senha;
 	private $email;
 	private $img;
+	private $admin;
 
 	public function setNome($nome)
 	{
@@ -51,6 +52,14 @@ class Usuario{
 	public function getImg()
 	{
 		return $this->img;
+	}
+	public function setAdmin($admin)
+	{
+		 $this->admin=$admin;
+	}
+	public function getAdmin()
+	{
+		return $this->admin;
 	}
 }
 ?>

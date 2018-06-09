@@ -1,6 +1,6 @@
 <?php
 
-class Ingrediente {
+class Categoria {
 	private $id;
 	private $nome;
 

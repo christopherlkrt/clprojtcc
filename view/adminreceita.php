@@ -11,19 +11,11 @@ $linhas = sizeof($objreceitas);
             <div class="box-header">
               <h3 class="box-title">Receitas</h3>
 
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
+                <thead>
                 <tr>
                   <th>ID</th>
                   <th>Imagem</th>
@@ -32,13 +24,15 @@ $linhas = sizeof($objreceitas);
                   <th>Status</th>
                   <th>Operações</th>
                 </tr>
+              </thead>
+              <tbody>
                 <?php
                 for ($i=0; $i < $linhas ; $i++) { 
                 ?>
                 <tr>
                   <td><?=$objreceitas[$i]['idreceita']?></td>
-                  <td><img src="../imgs/receitas/<?=$objreceitas[$i]['imgreceita']?>" class="img-responsive img-rounded miniatura-img" alt="Imagem da Receita"></td>
-                  <td><?=$objreceitas[$i]['nomereceita']?></td>
+                  <td><a href="receita.php?idreceita=<?=$objreceitas[$i]['idreceita']?>"><img src="../imgs/receitas/<?=$objreceitas[$i]['imgreceita']?>" class="img-responsive img-rounded miniatura-img" alt="Imagem da Receita"></a></td>
+                  <td><a class="no-style" href="receita.php?idreceita=<?=$objreceitas[$i]['idreceita']?>"><?=$objreceitas[$i]['nomereceita']?></a></td>
                   <?php if ($objreceitas[$i]['idusuario']==null) {
                     
                   
@@ -64,7 +58,10 @@ $linhas = sizeof($objreceitas);
                  <?php
                 }
                 ?>
+                </tbody>
+                <tfoot>
                 <td><button class="btn btn-default" id="addreceita"><i class="icon-plus"></i>Adicionar</button></td>
+                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -74,6 +71,42 @@ $linhas = sizeof($objreceitas);
       </div>
 
       <script>
+         $(document).ready(function() {
+            $('table').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false,
+      language:{
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "_MENU_ resultados por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+            "sNext": "Próximo",
+            "sPrevious": "Anterior",
+            "sFirst": "Primeiro",
+            "sLast": "Último"
+        },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+        }
+      },
+      "lengthMenu": [[8, 16, 24, -1], [8, 16, 24, "All"]]
+      });
+          });
+
+
           $('.table').on("click","#aprovar",function(e) {
         e.preventDefault();  
         

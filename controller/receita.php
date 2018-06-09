@@ -3,10 +3,32 @@
 include "../model/receita.class.php";
 include "../model/receita_ingrediente.class.php";
 include "../model/receitaOP.class.php";
+include "../model/categoria.class.php";
+include "../model/categoriaOP.class.php";
+include "../model/receita_categoria.class.php";
+include "../model/receita_categoriaOP.class.php";
 if (isset($_POST['cadastro']))
 {
 	
+	foreach ($_POST['ingrediente'] as $key => $value) {
+		$ingrediente=$_POST['ingrediente'][$key];
+		$receitaop= new ReceitaOP();
+		$idingrediente=$receitaop-> getIdporNome(strtoupper($ingrediente));
 
+		if($idingrediente==null){
+			$erro=1;
+			break;
+		}
+		else {
+			$erro=0;
+		}
+	}
+
+	if ($erro==1) {
+		$array[]=1;
+		echo json_encode($array);
+	}
+	else {
 	$nomereceita=	$_POST['nome'];
 	$descricao=		$_POST['descricao'];
 	$imgreceita=	$_FILES['imgreceita']['name'];
@@ -21,33 +43,44 @@ if (isset($_POST['cadastro']))
 	$receita-> setImg($imgreceita);
 	$receita-> setUsuario($usuario);
 
-	$receitaop= new ReceitaOP();
 	$idreceita=$receitaop-> inserir($receita);
 	move_uploaded_file($tmpimgreceita, "../imgs/receitas/".$imgreceita);
 
-foreach ($_POST['ingrediente'] as $key => $value) {
+
+	foreach ($_POST['ingrediente'] as $key => $value) {
+
+		$ingrediente=$_POST['ingrediente'][$key];
+		$qtd=$_POST['qtd'][$key];
+		$medida=$_POST['medida'][$key];
+
+		$idingrediente=$receitaop-> getIdporNome(strtoupper($ingrediente));
+		
+		$receita_ingrediente = new ReceitaIng();
+		$receita_ingrediente -> setIngrediente($idingrediente);
+		$receita_ingrediente -> setReceita($idreceita);
+		$receita_ingrediente -> setQuantia($qtd);
+		$receita_ingrediente -> setMedida($medida);
+
+		$receitaop-> inserirReceitaIng($receita_ingrediente);
+		
+	}
 	
+		foreach ($_POST['cat'] as $key => $value) {
+
+			$categoria=$_POST['cat'][$key];
+
+			$receita_categoria = new ReceitaCat();
+			$receita_categoria -> setReceita($idreceita);
+			$receita_categoria -> setCategoria($categoria);
+
+			$receitacatop = new ReceitaCatOP();
+			$receitacatop-> inserirReceitaCat($receita_categoria);
+		}
 	
+	$array[]=0;
+	echo json_encode($array);
 
-    $ingrediente=$_POST['ingrediente'][$key];
-    $qtd=$_POST['qtd'][$key];
-    $medida=$_POST['medida'][$key];
-
-    $idingrediente=$receitaop-> getIdporNome($ingrediente);
-
-	$receita_ingrediente = new ReceitaIng();
-	$receita_ingrediente -> setIngrediente($idingrediente);
-	$receita_ingrediente -> setReceita($idreceita);
-	$receita_ingrediente -> setQuantia($qtd);
-	$receita_ingrediente -> setMedida($medida);
-
-
-	$receitaop-> inserirReceitaIng($receita_ingrediente);
-
-
-}
-
-	
+	}
 }
 else if (isset($_POST['entrar']))
 {
@@ -79,11 +112,11 @@ else if (isset($_POST['entrar']))
 else if (isset($_POST['idreceita']))
 {
 	
-	 $idreceita = $_POST['idreceita'];
-	 $nome=$_POST['nome'];
-	 $descricao=$_POST['descricao'];
-	 $img=$_FILES['imgreceita']['name'];
-	 $tmpimg=$_FILES['imgreceita']['tmp_name'];
+	$idreceita = $_POST['idreceita'];
+	$nome=$_POST['nome'];
+	$descricao=$_POST['descricao'];
+	$img=$_FILES['imgreceita']['name'];
+	$tmpimg=$_FILES['imgreceita']['tmp_name'];
 
 	$receita = new Receita();
 	$receita-> setId($idreceita);
@@ -98,10 +131,10 @@ else if (isset($_POST['idreceita']))
 }
 else if (isset($_POST['addreceita']))
 {
-	 $nome=$_POST['nome'];
-	 $descricao=$_POST['descricao'];
-	 $img=$_FILES['imgreceita']['name'];
-	 $tmpimg=$_FILES['imgreceita']['tmp_name'];
+	$nome=$_POST['nome'];
+	$descricao=$_POST['descricao'];
+	$img=$_FILES['imgreceita']['name'];
+	$tmpimg=$_FILES['imgreceita']['tmp_name'];
 
 	$receita = new Receita();
 	$receita-> setNome($nome);
@@ -129,6 +162,64 @@ else if (isset($_POST['deletar'])) {
 
 
 }
+// else if (isset($_POST['geraReceitas'])) {
+// 	include "../model/ingredienteOP.class.php";
+// 	session_start();
+// 	$idusuario=$_SESSION['idusuario'];
+
+// 		$ingredienteOP = new IngredienteOP();
+// 		$itens = $ingredienteOP->getIngredientesIn($idusuario);
+// 		$itens1 = $ingredienteOP->getIngredientesOut($idusuario);
 
 
+// 	if($itens!=null and $itens1!=null){
+// 		$i=0;
+// 		foreach ($itens as $key => $value) {
+// 			$itensSplit[$i]=$itens[$key];
+// 			$i++;	
+// 		}
+// 		foreach ($itensSplit as $key => $value) {
+// 			$itensIn[]=$itensSplit[$key]['idingrediente'];
+// 		}
+// 		$itensInMDS=implode(', ', $itensIn);
+
+
+// 		$i=0;
+// 		foreach ($itens1 as $key => $value) {
+// 			$itensSplit1[$i]=$itens1[$key];
+// 			$i++;	
+// 		}
+// 		foreach ($itensSplit1 as $key => $value) {
+// 			$itensOut[]=$itensSplit1[$key]['idingrediente'];
+// 		}
+// 		$itensOutMDS=implode(', ', $itensOut);
+// 		$geraReceitas = $ingredienteOP->customReceitas($itensInMDS, $itensOutMDS);
+// 	}else if ($itens!=null and $itens1==null) {
+
+// 		$i=0;
+// 		foreach ($itens as $key => $value) {
+// 			$itensSplit[$i]=$itens[$key];
+// 			$i++;	
+// 		}
+// 		foreach ($itensSplit as $key => $value) {
+// 			$itensIn[]=$itensSplit[$key]['idingrediente'];
+// 		}
+// 		$itensInMDS=implode(', ', $itensIn);
+// 		$geraReceitas = $ingredienteOP->buscaIngs($itensInMDS);
+
+// 	}else if ($itens==null and $itens1!=null){
+
+// 		$i=0;
+// 		foreach ($itens1 as $key => $value) {
+// 			$itensSplit1[$i]=$itens1[$key];
+// 			$i++;	
+// 		}
+// 		foreach ($itensSplit1 as $key => $value) {
+// 			$itensOut[]=$itensSplit1[$key]['idingrediente'];
+// 		}
+// 		$itensOutMDS=implode(', ', $itensOut);
+// 		$geraReceitas = $ingredienteOP->buscaIngsOut($itensOutMDS);
+
+// 	}
+// }
 ?>

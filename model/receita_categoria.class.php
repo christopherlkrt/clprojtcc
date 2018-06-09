@@ -1,8 +1,8 @@
 <?php
 
-class Usuario_receita{
+class ReceitaCat {
 	private $idreceita;
-	private $idrsuario;
+	private $idcategoria;
 
 public function setReceita($idreceita)
 	{
@@ -14,16 +14,17 @@ public function getReceita()
 		return $this->idreceita;
 	}
 
-public function setUsuario($idusuario)
+public function setCategoria($idcategoria)
 	{
-		$this->idusuario=$idusuario;
+		$this->idcategoria=$idcategoria;
 	}
 
-public function getUsuario()
+public function getCategoria()
 	{
-		return $this->idusuario;
+		return $this->idcategoria;
 	}
 
 }
+
 
 ?>

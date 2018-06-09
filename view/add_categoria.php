@@ -1,25 +1,10 @@
 <div class="container caixabranca col-md-offset-5">
            
-                <form method="post" id="formulario" name="formulario" class="col-md-offset-4" enctype="multipart/form-data">
+                <form method="post" id="formulario" name="formulario" class="col-md-offset-4">
                     <div class="input-group form-group">
-                        <label>Nome</label>
+                        <span>Nome</span>
                         <input type="text" class="form-control" id="nome" name="nome" required>
-                        <input type="hidden" id="cadastro" name="cadastro" value="cadastro">
-                    </div>
-
-                    <div class="input-group form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                        <label>Senha</label>
-                        <input type="password" class="form-control" id="senha" name="senha" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                      <label for="isadmin">Admin?</label>
-                      <input type="checkbox" name="isAdmin" id="isAdmin" value="1">
+                        <input type="hidden" id="catadd" name="catadd" value="catadd">
                     </div>
 
                     <input type="submit" class="btn btn-default" name="salvaradmin" value="Salvar">
@@ -30,10 +15,9 @@
    
     $( "#formulario" ).on( "submit", function( event ) {
        event.preventDefault();
-
       var formdata = new FormData(this);
 
-      var link = "../controller/usuario.php";
+      var link = "../controller/categoria.php";
           $.ajax({
               type: 'POST',
               url: link,
@@ -41,7 +25,7 @@
               processData: false,
               contentType: false
           }).done(function () {
-            $("#retorno").load("adminusuario.php");
+            $("#retorno").load("admincat.php");
           });
 
 

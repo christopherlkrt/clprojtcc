@@ -82,8 +82,8 @@ class ReceitaOP extends BD{
       
       if ($stmt->execute())
       {   
-        header("location: ../view/home.php");
-
+        $resultado=1;
+        return $resultado;
       }
       else
       {
@@ -145,7 +145,7 @@ public function getUsuarioEnviadas($idusuario) {
 
   public function getIdporNome($ing) {
   try {
-   $stmt=$this->pdo->prepare("SELECT idingrediente FROM ingredientes where nomeingrediente='$ing'");
+   $stmt=$this->pdo->prepare("SELECT idingrediente FROM ingredientes where upper(nomeingrediente)='$ing'");
 
    if ($stmt->execute())
    {   
@@ -270,6 +270,28 @@ public function getNotaReceita($idreceita) {
   }
 }
 
+// public function inserirMedia(Nota_usuario $nota_usuario) {
+//   try {
+//     $stmt = $this->pdo->query(
+//       'SELECT SUM(notausuario) / COUNT(idreceita) as media from nota_usuario where idreceita= ?' );
+//     $stmt->bindValue(1, $nota_usuario->getReceita());
+
+//     $resultado=$stmt->fetch();
+//     $media = $resultado['media'];
+
+//     $stmt1 = $this->pdo->query(
+//       "UPDATE receitas set notareceita='$media' where idreceita=?");
+//     $stmt1->bindValue(1, $nota_usuario->getReceita());
+
+//     $stmt1->execute();
+//   }
+//   catch (PDOException  $e) {
+//     print $e->getMessage();
+//   }
+// }
+
+
+
 
 public function getIngrediente($id) {
   try {
@@ -340,6 +362,58 @@ public function deletar($idreceita){
   } catch (PDOException  $e) {
    print $e->getMessage(); }
  }
+    public function getBusca($busca) {
+    try {
+        $stmt = $this->pdo->query(
+            "SELECT * FROM receitas where (nomereceita like '%$busca%') or (descricao like '%$busca%') ORDER BY idreceita ASC" );
+        $resultado=$stmt->fetchAll();
+        return $resultado;    
+    }
+    catch (PDOException  $e) {
+       print $e->getMessage();
+   }
+}
+
+ public function buscaIngs($itens) {
+  try {
+    if ($itens!=null) {
+    
+    $stmt = $this->pdo->query(
+      "SELECT * FROM receitas where receitas.idreceita in (SELECT idreceita from receitas join receita_ingrediente using (idreceita) where idingrediente in($itens))");
+    $resultado=$stmt->fetchAll();
+    } else{ $resultado = null;}
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function buscaIngsOut($itens) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT * FROM receitas where receitas.idreceita NOT IN (SELECT idreceita from receitas join receita_ingrediente using (idreceita) where idingrediente in ($itens))");
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+ public function customReceitas($itensIn, $itensOut) {
+  try {
+    $stmt=$this->pdo->query(
+      "SELECT * FROM receitas where receitas.idreceita in (SELECT idreceita from receitas join receita_ingrediente using (idreceita) where idingrediente in($itensIn)) AND receitas.idreceita NOT IN (SELECT idreceita from receitas join receita_ingrediente using (idreceita) where idingrediente in ($itensOut))");
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+
  
 }
 

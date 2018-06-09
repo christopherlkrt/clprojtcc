@@ -22,7 +22,7 @@
 </head>
 <body>
 
-	<?php if(isset($_POST)) print_r($_POST); ?>
+	<?php if(isset($_POST)) print_r($_POST['ing']); ?>
 
 	<form method="post">
 		<input type="text" id="tags-input" name="ing">

@@ -20,8 +20,6 @@ else if(!isset($_SESSION['idusuario'])){
 }
 
 
-
-
 ?>
 
 
@@ -38,28 +36,36 @@ else if(!isset($_SESSION['idusuario'])){
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../js/typeahead.js"></script>
     <script src="../bootstrap/js/bootstrap-tagsinput.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://projectsbox.com.br/css/bootstrap-tagsinput.css">
-    <link rel="stylesheet" type="text/css" href="http://projectsbox.com.br/css/typeahead.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-tagsinput.css">
+    <link rel="stylesheet" type="text/css" href="../css/typeahead.css">
     <script>
         $(document).ready(function() {
-
-            $("#receitas").click(function(){
+                        <?php 
+           if(isset($_GET['ingredientes'])){ ?>
+          $("#retorno").load("conta_ingredientes.php");
+           <?php } ?>
+            $("#receitas").click(function(e){
+                e.preventDefault();
                 $("#retorno").load("conta_receitas.php");
             });
 
-            $("#dados").click(function(){
-                location.reload();
+            $("#dados").click(function(e){
+                e.preventDefault();
+                window.location.assign("conta_dados.php")
             });
 
-            $("#ingredientes").click(function(){
+            $("#ingredientes").click(function(e){
+                e.preventDefault();
                 $("#retorno").load("conta_ingredientes.php");
             });
 
-            $("#enviareceita").click(function(){
+            $("#enviareceita").click(function(e){
+                e.preventDefault();
                 $("#retorno").load("cadreceita.php");
             });
 
-            $("#enviadas").click(function(){
+            $("#enviadas").click(function(e){
+                e.preventDefault();
                 $("#retorno").load("conta_enviadas.php");
             });
 
@@ -77,7 +83,7 @@ else if(!isset($_SESSION['idusuario'])){
     ?>
 
 
-    <div class="container-fluid margin-tmais">
+    <div class="container-fluid margin-nav">
         <aside>
             <div class="row meio margin-t5">
             <div class="btn-group" role="group">
@@ -91,7 +97,8 @@ else if(!isset($_SESSION['idusuario'])){
         </aside>
 
         <div class="container caixabranca col-md-offset-5" id="retorno">
-           
+
+
                 <form action="../controller/usuario.php" method="post" class="col-md-offset-4" enctype="multipart/form-data">
 
 
@@ -102,17 +109,17 @@ else if(!isset($_SESSION['idusuario'])){
                     </div>
                     <div class="input-group form-group">
                         <span>Nome</span>
-                        <input type="text" class="form-control" name="nome" value="<?=$linha['nomeusuario']?>" required>
+                        <i class="icon-user"></i><input type="text" class="form-control" name="nome" value="<?=$linha['nomeusuario']?>" required>
                     </div>
 
                     <div class="input-group form-group">
                         <span>Email</span>
-                        <input type="email" class="form-control" name="email" value="<?=$linha['email']?>" required>
+                        <i class="icon-mail-alt"></i><input type="email" class="form-control" name="email" value="<?=$linha['email']?>" required>
                     </div>
 
                     <div class="input-group form-group">
                         <span>Senha</span>
-                        <input type="password" class="form-control" name="senha" value="<?=$linha['senha']?>" required>
+                        <i class="icon-lock"></i><input type="password" class="form-control" name="senha" value="<?=$linha['senha']?>" required>
                     </div>
 
                     <input type="submit" class="btn btn-default" name="salvar" value="Salvar">

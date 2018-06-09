@@ -117,7 +117,7 @@ public function getUsuarioIngredientes($idusuario) {
   try {
     $stmt = $this->pdo->query(
       "SELECT ingredientes.idingrediente, ingredientes.nomeingrediente FROM ingredientes, usuario_ing WHERE ingredientes.idingrediente = usuario_ing.idingrediente AND usuario_ing.idusuario = '$idusuario'
-        AND usuario_ing.inclui = 'sim' ORDER BY ingredientes.nomeingrediente ASC" );
+        AND usuario_ing.inclui = 1 ORDER BY ingredientes.nomeingrediente ASC" );
     $resultado=$stmt->fetchAll();
     return $resultado;
   }
@@ -126,11 +126,38 @@ public function getUsuarioIngredientes($idusuario) {
   }
 }
 
+public function getIngredientesIn($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT ingredientes.idingrediente FROM ingredientes, usuario_ing WHERE ingredientes.idingrediente = usuario_ing.idingrediente AND usuario_ing.idusuario = '$idusuario'
+        AND usuario_ing.inclui = 1" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+public function getIngredientesOut($idusuario) {
+  try {
+    $stmt = $this->pdo->query(
+      "SELECT ingredientes.idingrediente FROM ingredientes, usuario_ing WHERE ingredientes.idingrediente = usuario_ing.idingrediente AND usuario_ing.idusuario = '$idusuario'
+        AND usuario_ing.inclui = 0" );
+    $resultado=$stmt->fetchAll();
+    return $resultado;
+  }
+  catch (PDOException  $e) {
+    print $e->getMessage();
+  }
+}
+
+
 public function getUsuarioIngredientesFora($idusuario) {
   try {
     $stmt = $this->pdo->query(
       "SELECT ingredientes.idingrediente, ingredientes.nomeingrediente FROM ingredientes, usuario_ing WHERE ingredientes.idingrediente = usuario_ing.idingrediente AND usuario_ing.idusuario = '$idusuario'
-        AND usuario_ing.inclui = 'nao' ORDER BY ingredientes.nomeingrediente ASC" );
+        AND usuario_ing.inclui = 0 ORDER BY ingredientes.nomeingrediente ASC" );
     $resultado=$stmt->fetchAll();
     return $resultado;
   }

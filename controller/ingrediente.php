@@ -24,7 +24,7 @@ else if (isset($_POST['adding']))
 
 	$vetoringredientes = explode(',', $_POST['adding']);
 	$idusuario=$_SESSION['idusuario'];
-	$inclui='sim';
+	$inclui=1;
 
 	foreach ($vetoringredientes as $indice => $idingrediente) {
 		
@@ -45,7 +45,7 @@ else if(isset($_POST['removeing'])){
 
 	$vetoringredientes = explode(',', $_POST['removeing']);
 	$idusuario=$_SESSION['idusuario'];
-	$inclui='nao';
+	$inclui=0;
 
 	foreach ($vetoringredientes as $indice => $idingrediente) {
 		
@@ -93,7 +93,6 @@ else if (isset($_POST['salvaradmin']))
 	$ingredienteop-> update($ingrediente);
 }
 else if (isset($_POST['ingadd'])) {
-	print_r($_POST['nome']);
 	$nome = $_POST['nome'];
 	$ingrediente = new Ingrediente();
 	$ingrediente-> setNome($nome);

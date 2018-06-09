@@ -1,19 +1,18 @@
 <?php
-session_start();
-include "../model/usuarioOP.class.php";
-
-$usuarioop = new UsuarioOP();
-$objusuarios = $usuarioop->getAll();
-$linhas = sizeof($objusuarios);
+include "../model/categoriaOP.class.php";
+$categoriaop = new CategoriaOP();
+$objcat = $categoriaop->getAll();
+$linhas = sizeof($objcat);
 
 ?>
 
 
-     <div class="row caixabranca">
+     <div class="row caixabranca largo" style="min-width: 48%;">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Usuários</h3>
+              <h3 class="box-title">Categorias</h3>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -21,8 +20,7 @@ $linhas = sizeof($objusuarios);
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Usuário</th>
-                  <th>E-mail</th>
+                  <th>Nome</th>
                   <th>Operações</th>
                 </tr>
                 </thead>
@@ -31,17 +29,16 @@ $linhas = sizeof($objusuarios);
                 for ($i=0; $i < $linhas ; $i++) { 
                 ?>
                 <tr>
-                  <td><?=$objusuarios[$i]['idusuario']?></td>
-                  <td><?=$objusuarios[$i]['nomeusuario']?></td>
-                  <td><?=$objusuarios[$i]['email']?></td>
-                  <td id="<?=$objusuarios[$i]['nomeusuario']?>" name="<?=$objusuarios[$i]['idusuario']?>"><button class="btn btn-default" id="editarusu"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarusu"><i class="icon-cancel"></i>Deletar</button></td>
+                  <td><?=$objcat[$i]['id']?></td>
+                  <td><?=$objcat[$i]['nome']?><input type="hidden" id="nome" value="<?=$objcat[$i]['nomeingrediente']?>" /></td>
+                  <td id="<?=$objcat[$i]['nome']?>" name="<?=$objcat[$i]['id']?>"><button class="btn btn-default" id="editarcat"><i class="icon-pencil"></i>Editar</button><button class="btn btn-default" id="deletarcat"><i class="icon-cancel"></i>Deletar</button></td>
                 </tr>
                 <?php
                 }
                 ?>
                 </tbody>
                 <tfoot>
-                <td><button class="btn btn-default" id="addusuario"><i class="icon-plus"></i>Adicionar</button></td>
+                <td><button class="btn btn-default" id="catadd"><i class="icon-plus"></i>Adicionar</button></td>
                 </tfoot>
               </table>
             </div>
@@ -50,10 +47,10 @@ $linhas = sizeof($objusuarios);
           <!-- /.box -->
         </div>
       </div>
-            
+
 <script>
-   $(document).ready(function() {
-      $('table').dataTable({
+       $(document).ready(function() {
+    $('table').dataTable({
       'paging'      : true,
       'lengthChange': true,
       'searching'   : true,
@@ -84,48 +81,49 @@ $linhas = sizeof($objusuarios);
         }
       },
       "lengthMenu": [[8, 16, 24, -1], [8, 16, 24, "All"]]
-      });
-    });
+      })
+  });
 
-      $('.table').on("click","#deletarusu",function(e) {
+
+    
+         $('.table').on("click","#deletarcat",function(e) {
         e.preventDefault();
-   
-        var confirma=confirm('Tem certeza que deseja excluir o usuário '+$(this).parent('td').attr('id')+'?');
+
+         var confirma=confirm('Tem certeza que deseja excluir o ingrediente '+$(this).parent('td').attr('id')+'?');
         if (confirma==true) {
 
         var deletar = $(this).parent('td').attr('name');
    
-        $.post("../controller/usuario.php",
+        $.post("../controller/categoria.php",
       {
           deletar: deletar
       }).done(function() {
 
-      $("#retorno").load("adminusuario.php")
+      $("#retorno").load("admincat.php")
       });
       }
 
       });
 
-
-      $('.table').on("click","#editarusu",function(e) {
-        e.preventDefault();
-       
-        var editar = $(this).parent('td').attr('name');
-        $.post("edita_usuario.php",
-      {
-          editar: editar
-
-      }).done(function(data) {
-
-      $("#retorno").html(data)
-      });
-
-      });
-
-      $('.table').on("click","#addusuario",function(e) {
+        $('.table').on("click","#editarcat",function(e) {
       e.preventDefault();
      
-      $("#retorno").load("add_usuario.php")
+      var editar = $(this).parent('td').attr('name');
+      $.post("edita_categoria.php",
+    {
+        editar: editar
+
+    }).done(function(data) {
+
+    $("#retorno").html(data)
+    });
 
     });
-</script>
+
+      $('.table').on("click","#catadd",function(e) {
+      e.preventDefault();
+     
+      $("#retorno").load("add_categoria.php")
+
+    });
+    </script>

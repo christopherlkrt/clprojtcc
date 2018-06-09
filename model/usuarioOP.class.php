@@ -15,21 +15,23 @@ class UsuarioOP extends BD{
     	//print_r($categoria);
     try {
       $stmt = $this->pdo->prepare(
-        'INSERT INTO usuarios (nomeusuario, email, senha, img) VALUES (?,?,?,?)');
+        'INSERT INTO usuarios (nomeusuario, email, senha, img, isAdmin) VALUES (?,?,?,?,?)');
 
       $stmt->bindValue(1, $usuario->getNome());
       $stmt->bindValue(2, $usuario->getEmail());
       $stmt->bindValue(3, $usuario->getSenha());
       $stmt->bindValue(4, $usuario->getImg());
+      $stmt->bindValue(5, $usuario->getAdmin());
 
       if ($stmt->execute())
       { 	
-        header("location: ../view/home.php");
+        $resultado=1;
+        return $resultado;
 
      }
      else
      {
-       echo "Erro ao inserir";
+       return false;
      }
 
    } catch (PDOException  $e) {
@@ -62,14 +64,16 @@ class UsuarioOP extends BD{
 
   }
 
+
   public function updateadm(Usuario $usuario){
    try{
-    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? 
+    $stmt=$this->pdo->prepare('UPDATE usuarios set nomeusuario = ? , senha= ? , email = ? , isAdmin = ? 
       WHERE idusuario= ? ');
     $stmt->bindValue(1, $usuario->getNome());
     $stmt->bindValue(2, $usuario->getSenha());
     $stmt->bindValue(3, $usuario->getEmail());
-    $stmt->bindValue(4, $usuario->getId());
+    $stmt->bindValue(4, $usuario->getAdmin());
+    $stmt->bindValue(5, $usuario->getId());
     if ($stmt->execute())
     {   
      echo "Registro Alterado com sucesso";
@@ -154,7 +158,7 @@ function logar($email, $senha)
 { 
   $this->email = $email;
   $this->senha = $senha;
-  $resultado = $this->pdo->query("SELECT idusuario, nomeusuario, img from usuarios where email= '$email' AND senha= '$senha'");
+  $resultado = $this->pdo->query("SELECT idusuario, nomeusuario, img, isAdmin from usuarios where email= '$email' AND senha= '$senha'");
   $obj=$resultado->fetch(PDO::FETCH_OBJ);
   $linha= $resultado->rowCount();
   if($linha == 1)

@@ -59,14 +59,16 @@ if(isset($_SESSION['idusuario'])){
 
 	<!-- descrição-receita-->
     <section>
-        <div class="container-fluid margin-tmais">
+        <div class="container-fluid margin-nav">
         <div class="row">
             <aside  class="col-md-2 col-md-offset-1">
                 <div>
                     <img src="../imgs/usuarios/<?=$obj_visitado['img']?>" class="img-responsive img-circle visited-user-pic" alt="Imagem do Usuario">
-                    <h3 class="meio"><?=$obj_visitado['nomeusuario']?></h3>
-                    <input type="button" class="btn btn-default" value="Receitas Favoritas" id="favoritas" name="favoritas" />
-                    <input type="button" class="btn btn-default" value="Receitas Enviadas" id="enviadas" name="enviadas" />
+                    <h4 class="meio">Receitas de <?=$obj_visitado['nomeusuario']?></h4>
+                    <div class="meio">
+                    <input type="button" class="btn btn-default" value="Favoritas" id="favoritas" name="favoritas" />
+                    <input type="button" class="btn btn-default" value="Enviadas" id="enviadas" name="enviadas" />
+                    </div>
                 </div>
             </aside>
             
@@ -84,78 +86,9 @@ if(isset($_SESSION['idusuario'])){
 </section>
 
 
-     <div class="absoluto">
-
     <?php
     include "../footer.php";
     ?>
-    </div>
-
-  <!--modals-->
-
- <div class="modal fade" id="modalCadastro">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span ara-hidden="true">&times;</span></button>
-                 <h3>Faça seu cadastro!</h3>
-             </div>
-             <div class="modal-body meio">
-                     <form action="../controller/usuario.php" method="post" class="">
-                    <div class="input-group form-group">
-                        <span>Nome</span>
-                        <input type="text" class="form-control" name="nome" placeholder="Ex. Cleber" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                        <span>Email</span>
-                        <input type="email" class="form-control" name="email" placeholder="exemplo@email.com" required>
-                    </div>
-
-                    <div class="input-group form-group">
-                        <span>Senha</span>
-                        <input type="password" class="form-control" name="senha" placeholder="******" required>
-                    </div>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                 <input type="submit" class="btn btn-default" name="cadastro" value="Cadastrar">
-                 </form>
-             </div>
-
-         </div><!--modal-content-->
-     </div><!--modal-dialog-->
- </div><!--modal-->
-
-
-<div class="modal fade" id="modalEntrar">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal"><span ara-hidden="true">&times;</span></button>
-                 <h3>Acesse sua conta.</h3>
-             </div>
-             <div class="modal-body meio">
-                     <form action="../controller/usuario.php" method="post" class="">
-                        <div class="input-group form-group">
-                            <span>Email</span>
-                            <input type="email" class="form-control" name="email" placeholder="exemplo@email.com" required>
-                        </div>
-
-                        <div class="input-group form-group">
-                            <span>Senha</span>
-                            <input type="password" class="form-control" name="senha" placeholder="******" required>
-                        </div>
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                 <input type="submit" class="btn btn-default" name="entrar" value="Entrar">
-                 </form>
-             </div>
-
-         </div><!--modal-content-->
-     </div><!--modal-dialog-->
- </div><!--modal-->
 </body>
 
 
